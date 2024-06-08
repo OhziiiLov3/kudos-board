@@ -9,3 +9,17 @@ body{
   background-color: #F2F2F2;
   font-family: "Raleway", sans-serif;
 }
+
+footer {
+    width:100%;
+    background-color:#323232;
+    color: #F2F2F2;
+    padding: 20px;
+    opacity: 0.5;
+    margin-top: auto;
+   
+  }
+  
+  footer p {
+    margin: 0;
+  }
