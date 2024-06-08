@@ -1,0 +1,12 @@
+.banner{
+ outline: 1px solid red;
+ text-align: center;
+ margin: 20px 20px;
+}
+
+
+.banner img {
+  width: 150px;
+  height: auto;
+  display: inline-block;
+}
