@@ -3,4 +3,128 @@
     margin: 20px 20px;
     padding: 10px 0;
     min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+
+.search-bar{
+  display: flex;
+  justify-content: center;
+  margin: 20px auto;
+  display: flex;
+  gap: 10px;
+  width: 50%; 
+  
+}
+
+.search-bar input {
+  padding: 8px;
+  flex: 1;
+  height: 40px;
+  font-size: 1rem;
+  box-sizing: border-box;
+  border-radius: 5px;
+  background-color: #fafbfc;
+  border: 1px solid rgba(27, 31, 35, 0.15);
+  box-shadow: rgba(27, 31, 35, 0.04) 0 1px 0,
+    rgba(255, 255, 255, 0.25) 0 1px 0 inset;
+  color: #24292e;
+  padding: 10px 20px;
+}
+
+
+.category-btns{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    margin: 10px 20px;
+}
+
+
+/* Common styles for filter buttons */
+
+
+
+.filter-btn {
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
+    padding: 10px 20px;
+    width: auto;
+    border-radius: 6px;
+    font-weight: 300;
+    margin: 5px;
+    color: #F2F2F2;
+    background-color: #323232;
+    transition: background-color 200ms, box-shadow 200ms;
+    cursor: pointer;
+    border: none;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.filter-btn:hover {
+    background-color: #4c58b5;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.filter-btn:active {
+    background-color: #4c58b5;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+
+.filter-btn:focus {
+    outline: 2px solid #323232;
+    background-color: #4c58b5;
+    outline-offset: 2px;
+}
+
+/* Add specific styles for spatial design effects */
+.filter-btn {
+    position: relative;
+    overflow: hidden;
+}
+
+.filter-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 200%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(255,255,255,0.1), rgba(255,255,255,0));
+    transition: left 0.3s ease;
+}
+
+.filter-btn:hover::before {
+    left: -50%;
+}
+
+
+.create-five-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  
+    margin: 10px 20px;
+    padding: 10px 0;
+}
+
+.create-five-btn{
+    background-color: #323232;
+    font-weight: 400;
+}
+
+
+
+
+
+/* Media Queries */
+
+
+
+@media (max-width: 768px) {
+  .search-bar {
+    max-width: 80%;
+  }
 }
