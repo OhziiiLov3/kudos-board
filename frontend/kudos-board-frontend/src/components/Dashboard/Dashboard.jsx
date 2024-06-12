@@ -1,19 +1,34 @@
-import {useState} from 'react'
-import "../Dashboard/Dashboard.css"
-import Header from "../Header/Header"
-import NewSpaceForm from "../NewSpaceForm/NewSpaceForm"
+import { useEffect, useState } from "react";
+import "../Dashboard/Dashboard.css";
+import Header from "../Header/Header";
+import NewSpaceForm from "../NewSpaceForm/NewSpaceForm";
+import { getSpaces } from "../../services/api";
 
 const Dashboard = () => {
-const [searchQuery, setSearchQuery] = useState("")
-const [showForm, setShowForm] = useState(false);
-  
- const toggleForm = () => {
-   setShowForm(!showForm);
-   console.log("Working");
- };
+  const [spaces, setSpaces] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [showForm, setShowForm] = useState(false);
 
-console.log(searchQuery);
+  useEffect(() => {
+    fetchSpaces();
+  }, []);
 
+  const fetchSpaces = async () => {
+    try {
+      const response = await getSpaces();
+      console.log(response.data.boards);
+      setSpaces(response.data.boards);
+    } catch (error) {
+      console.error("Error fetching boards:", error);
+    }
+  };
+
+  // modal pop up
+  const toggleForm = () => {
+    setShowForm(!showForm);
+  };
+
+  console.log(searchQuery);
 
   return (
     <div className="dashboard">
@@ -49,8 +64,23 @@ console.log(searchQuery);
           </div>
         </div>
       )}
+      <section className="space-grid">
+      {spaces.map((space,idx) => (
+          <div className="space-preview" key={idx}>
+            <img src="https://picsum.photos/200/300?random" alt="" />
+            <h3>{space.title}</h3>
+            <p>{space.category}</p>
+            <div className="btn-container">
+              <a href={`/board/${space.board_id}`}>See Space</a>
+              <button className="board-card btn filter-btn">
+                Delete Space
+              </button>
+            </div>
+          </div>
+        ))}
+      </section>
     </div>
   );
-}
+};
 
-export default Dashboard
+export default Dashboard;
