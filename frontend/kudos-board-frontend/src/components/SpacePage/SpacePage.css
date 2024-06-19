@@ -1,0 +1,27 @@
+.space-card-container{
+    margin: 10px 20px;
+    padding: 10px 0;
+    display: flex;
+    flex-direction: column;
+}
+
+
+
+.create-card-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    padding: 10px 0;
+    width: 50%;
+}
+
+.space-five-btn{
+    background-color: #323232;
+    font-weight: 300;
+}
+
+.back-link{
+    text-decoration: none;
+    color: #323232; 
+}
