@@ -14,7 +14,7 @@ datasource db {
 }
 
 
-model Board {
+model Space {
   id Int @id @default(autoincrement())
   title String
   category String
@@ -31,8 +31,8 @@ model Card {
   gifUrl String 
   author String ?
   upvotes Int @default(0)
-  boardId Int 
-  board Board @relation(fields: [boardId],references: [id])
+  spaceId Int 
+  space Space @relation(fields: [spaceId],references: [id])
   createdAt DateTime @default(now())
 }
 
