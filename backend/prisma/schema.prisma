@@ -15,24 +15,26 @@ datasource db {
 
 
 model Space {
-  id Int @id @default(autoincrement())
-  title String
-  category String
+  space_id Int @id @default(autoincrement())
+  title String?
+  category String?
   author String?
-  cards Card []
   createdAt DateTime @default(now())
+  updatedAt DateTime? @updatedAt
+  cards Card []
 }
 
 
 
 model Card {
-  id Int @id @default(autoincrement())
-  message String 
-  gifUrl String 
-  author String ?
+  card_id Int @id @default(autoincrement())
+  message String?
+  gifUrl String?
+  author String?
   upvotes Int @default(0)
-  spaceId Int 
-  space Space @relation(fields: [spaceId],references: [id])
   createdAt DateTime @default(now())
+  updatedAt DateTime? @updatedAt
+  space Space @relation(fields: [space_id] , references: [space_id])
+  space_id Int 
 }
 
