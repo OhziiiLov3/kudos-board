@@ -3,8 +3,8 @@ import axios from "axios";
 const API_BASE_URL = "http://localhost:3000/api";
 
 // Space API from backend
-// fecth all spaces
 
+// -> fecth all spaces
 export const getSpaces = async () => {
     try {
       const response = await axios.get(`${API_BASE_URL}/spaces`);
@@ -15,7 +15,7 @@ export const getSpaces = async () => {
     }
   };
 
-//   create new space
+// -> create new space
 export const createSpace = async (spaceData)=>{
  try {
     const response = await axios.post(`${API_BASE_URL}/spaces`, spaceData)
@@ -25,7 +25,29 @@ export const createSpace = async (spaceData)=>{
     throw error
  }
 }
+// -> fetcch space by Id
 
+export const getSpace = async (id) =>{
+  try {
+    const response = await axios.get(`${API_BASE_URL}/spaces/${id}`);
+    console.log(response.data)
+    return response.data
+  } catch (error) {
+    console.error("Error creating space:", error)
+    throw error
+  }
+}
+
+export const deleteSpace = async (id) =>{
+  try {
+    const response = await axios.delete(`${API_BASE_URL}/spaces/${id}`);
+    console.log(response.data)
+    return response.data
+  } catch (error) {
+    console.error("Error creating space:", error)
+    throw error
+  }
+}
 
 
 

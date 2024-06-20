@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import "../Dashboard/Dashboard.css";
 import Header from "../Header/Header";
 import NewSpaceForm from "../NewSpaceForm/NewSpaceForm";
-import { getSpaces } from "../../services/SpaceApi";
+import { getSpaces, deleteSpace } from "../../services/SpaceApi";
 
 const Dashboard = () => {
   const [spaces, setSpaces] = useState([]);
@@ -25,6 +25,18 @@ const Dashboard = () => {
     }
   };
 
+    // Handle space deletion
+    const handleDeleteSpace = async (id) => {
+      try {
+        await deleteSpace(id);
+        // Remove the deleted space from the state
+        const updatedSpaces = spaces.filter((space) => space.space_id !== id);
+        setSpaces(updatedSpaces);
+        setFilterSpaces(updatedSpaces);
+      } catch (error) {
+        console.error("Error deleting space:", error);
+      }
+    };
   
   // modal pop up
   const toggleForm = () => {
@@ -86,7 +98,7 @@ const Dashboard = () => {
             <p>{space.category}</p>
             <div className="btn-container">
               <a href={`/board/${space.space_id}`}>See Space</a>
-              <button className="board-card btn filter-btn">
+              <button className="board-card btn filter-btn" onClick={()=> handleDeleteSpace(space.space_id)}>
                 Delete Space
               </button>
             </div>
