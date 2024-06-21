@@ -38,8 +38,8 @@ const handleSubmit = async (e) => {
    <input type="text" placeholder="Author" name="author" value={formData.author} onChange={handleChange}/>
    <select name="category" value={formData.category}  onChange={handleChange} >
     <option value="">Select a category</option>
-    <option value="All">All</option>
-    <option value="Recent">Recent</option>
+    {/* <option value="All">All</option>
+    <option value="Recent">Recent</option> */}
     <option value="Encouragement">Encouragement</option>
     <option value="Thank you">Thank you</option>
     <option value="Inspiration">Inspiration</option>

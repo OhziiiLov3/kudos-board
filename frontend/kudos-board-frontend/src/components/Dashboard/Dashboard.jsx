@@ -56,6 +56,18 @@ const Dashboard = () => {
     setFilterSpaces(filtered)
   }
 
+  const handleCategoryClick = (category) =>{
+ if(category === "All"){
+  setFilterSpaces(spaces);
+ }else if(category === "Recent"){
+  const sortedByDate = [...spaces].sort((a,b)=> new Date(b.createdAt)- new Date(a.createdAt));
+  setFilterSpaces(sortedByDate);
+ }else{
+  const filtered = spaces.filter((space)=> space.category === category)
+  setFilterSpaces(filtered);
+ }
+  }
+
   return (
     <div className="dashboard">
       <Header />
@@ -68,11 +80,11 @@ const Dashboard = () => {
         />
       </div>
       <div className="category-btns">
-        <button className="filter-btn">All</button>
-        <button className="filter-btn">Recent</button>
-        <button className="filter-btn">Encouragement</button>
-        <button className="filter-btn">Thank You</button>
-        <button className="filter-btn">Inspiration</button>
+        <button className="filter-btn" onClick={()=> handleCategoryClick("All")}>All</button>
+        <button className="filter-btn" onClick={()=> handleCategoryClick("Recent")}>Recent</button>
+        <button className="filter-btn" onClick={()=> handleCategoryClick("Encouragement")}>Encouragement</button>
+        <button className="filter-btn" onClick={()=> handleCategoryClick("Thank you")}>Thank You</button>
+        <button className="filter-btn" onClick={()=> handleCategoryClick("Inspiration")}>Inspiration</button>
       </div>
       <div className="create-five-container">
         <button className="create-five-btn filter-btn" onClick={toggleForm}>
