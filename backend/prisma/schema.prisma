@@ -28,6 +28,7 @@ model Space {
 
 model Card {
   card_id Int @id @default(autoincrement())
+  title   String? 
   message String?
   gifUrl String?
   author String?
