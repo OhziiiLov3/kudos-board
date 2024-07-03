@@ -66,7 +66,7 @@ const NewCardForm = ({ spaceId, onCardCreated }) => {
       await navigator.clipboard.writeText(selectedGifUrl);
       console.log("Url Copied to clipboard", selectedGifUrl);
       setShowCopiedMessage(true); // Show copied message
-      setTimeout(() => setShowCopiedMessage(false), 2000); // Hide message after 2 seconds
+      setTimeout(() => setShowCopiedMessage(false), 3000); // Hide message after 2 seconds
     } catch (error) {
       console.error("Failed to copy URL:", error);
     }

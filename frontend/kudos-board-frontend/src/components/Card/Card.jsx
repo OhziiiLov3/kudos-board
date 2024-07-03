@@ -1,19 +1,20 @@
 
+import '../Card/Card.css'
 
-const Card = () => {
-    const {title, message, gif, author} = card;
+
+const Card = ({ card, onUpvote, onDelete }) => {
+  const { title, message, gifUrl, author, upvotes,card_id } = card;
+  console.log("Card:",card);
   return (
-    <div className="card">
-       <h3>{title}</h3>
+    <div className="card"  >
+      <h3>{title}</h3>
+      {gifUrl && <img src={gifUrl} alt="GIF" />}
       <p>{message}</p>
-      <img src={gif} alt="GIF" />
       <p>{author}</p>
-      <button className='upvote-button' onClick={handleUpvote}>Upvote: {votes}</button>
-      <button className="delete-button" onClick={onDelete}>
-        Delete
-      </button>
+      <button className='upvote-button' onClick={() => onUpvote(card_id)}>Upvote: {upvotes}</button>
+      <button className="delete-button" onClick={() => onDelete(card_id)}>Delete</button>
     </div>
-  )
-}
+  );
+};
 
-export default Card
+export default Card;

@@ -12,7 +12,7 @@ app.use(cors());
 app.use(bodyParser.json());
 
 
-app.use('/api/', cardRoutes);
+app.use('/api', cardRoutes);
 app.use('/api', spaceRoutes);
 
 

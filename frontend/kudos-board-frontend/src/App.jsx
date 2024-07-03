@@ -11,7 +11,7 @@ function App() {
     <Router>
       <Routes>
         <Route path='/' element={<Dashboard/>} />
-        <Route path='/board/:id' element={<SpacePage/>} />
+        <Route path='/spaces/:id' element={<SpacePage/>} />
       </Routes>
   <Footer/>
     </Router>

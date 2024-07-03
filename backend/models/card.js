@@ -11,7 +11,7 @@ const createCard = async ({ title, author, message, gifUrl, spaceId }) => {
         author,
         gifUrl,
         space: {
-          connect: { space_id: spaceId }, // spaceId is the ID of an existing space
+          connect: { space_id: parseInt(spaceId) }, // spaceId is the ID of an existing space
         },
       },
     });

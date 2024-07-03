@@ -142,7 +142,7 @@ const Dashboard = () => {
             <h3>{space.title}</h3>
             <p>{space.category}</p>
             <div className="btn-container">
-              <a href={`/board/${space.space_id}`}>See Space</a>
+              <a href={`/spaces/${space.space_id}`}>See Space</a>
               <button
                 className="board-card btn filter-btn"
                 onClick={() => handleDeleteSpace(space.space_id)}

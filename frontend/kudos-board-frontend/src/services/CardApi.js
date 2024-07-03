@@ -13,3 +13,41 @@ export const createCard = async (cardData) => {
     throw error;
  }
 };
+
+
+// Function to get all cards for a space
+export const getCards = async (spaceId) => {
+  try {
+    const response = await axios.get(`${API_BASE_URL}/${spaceId}/cards`);
+    console.log("Get cards response:", response.data);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching cards:', error);
+    throw error;
+  }
+};
+
+
+// Function to upvote a card
+export const upvoteCard = async (spaceId, cardId) => {
+    try {
+        const response = await axios.patch(`${API_BASE_URL}/${spaceId}/cards/${cardId}`);
+        console.log(response.data); 
+        return response.data  
+    } catch (error) {
+        console.error('Error upvoting card:', error);
+    }
+};
+
+// Function to delete a card
+export const deleteCard = async (spaceId, cardId) => {
+    try {
+        const response = await axios.patch(`${API_BASE_URL}/${spaceId}/cards/${cardId}`);
+        console.log(response.data); 
+        return response.data  
+    } catch (error) {
+        console.error('Error upvoting card:', error);
+    }
+};
+
+
