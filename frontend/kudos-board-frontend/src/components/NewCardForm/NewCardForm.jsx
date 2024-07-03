@@ -13,6 +13,8 @@ const NewCardForm = ({ spaceId, onCardCreated }) => {
 
   const [gifs, setGifs] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
+  const [selectedGifUrl, setSelectedGifUrl] = useState("");
+  const [showCopiedMessage, setShowCopiedMessage] = useState(false);
 
   const handleGifSearch = async () => {
     console.log("Searching GIFs for query:", searchQuery);
@@ -49,12 +51,24 @@ const NewCardForm = ({ spaceId, onCardCreated }) => {
   };
 
   const handleGifSelect = (url) => {
+    setSelectedGifUrl(url); // Set the selected GIF URL
     setCardData((prevData) => ({
       ...prevData,
       gifUrl: url,
     }));
     setGifs([]); // clear the gif results after selectig
   };
+
+  const handleCopyUrl = async () =>{
+    try {
+      await navigator.clipboard.writeText(selectedGifUrl);
+      console.log("Url Copied to clipboard", selectedGifUrl);
+      setShowCopiedMessage(true); // Show copied message
+      setTimeout(() => setShowCopiedMessage(false), 2000); // Hide message after 2 seconds
+    } catch (error) {
+      console.error("Failed to copy URL:", error);
+    }
+  }
   return (
     <div className="form-container">
       <h2>Send a Card</h2>
@@ -91,8 +105,18 @@ const NewCardForm = ({ spaceId, onCardCreated }) => {
             onClick={() => handleGifSelect(gif.images.fixed_height.url)}
             />
           ))}
-        
         </div>
+        <input
+          type="text"
+          placeholder="Selected GIF URL"
+          value={selectedGifUrl}
+          readOnly // Make the input field read-only
+          onClick={(e) => e.target.select()} // Select all text on click
+        />
+         <button className="copy-btn" type="button" onClick={handleCopyUrl}>
+          Copy URL
+        </button>
+        {showCopiedMessage && <div className="copied-message">Copied to clipboard!</div>}
         <input
           type="text"
           placeholder="Author"
