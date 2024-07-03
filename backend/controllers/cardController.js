@@ -4,7 +4,6 @@ const CardModel = require('../models/card');
 const createCard = async (req, res) => {
     const { title, author, message, gifUrl} = req.body;
     const {spaceId} = req.params; 
-    console.log(req.body);
     try {
       const card = await CardModel.createCard({ title, message, author, gifUrl, spaceId: parseInt(spaceId) });
       res.json(card);

@@ -10,7 +10,7 @@ try {
      params: {
         q: query,
         api_key: giphyApiKey,
-        limit: 6,
+        limit: 8,
      }
     });
     console.log(response.data);

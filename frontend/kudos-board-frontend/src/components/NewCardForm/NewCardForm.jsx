@@ -43,6 +43,8 @@ const NewCardForm = ({ spaceId, onCardCreated }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      console.log("spaceId:",spaceId);
+      console.log("Card Data:", cardData);
       await createCard({ ...cardData, spaceId });
       onCardCreated();
     } catch (error) {

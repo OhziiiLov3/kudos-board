@@ -52,7 +52,7 @@ const SpacePage = () => {
             <span className="modal-close" onClick={() => setOpenCardForm(false)}>
               &times;
             </span>
-         <NewCardForm boardId={id} onCardCreated={handleCardForm}/>
+         <NewCardForm spaceId={id} onCardCreated={handleCardForm}/>
           </div>
         </div>
       )}
