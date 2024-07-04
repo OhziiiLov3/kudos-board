@@ -6,7 +6,6 @@ const API_BASE_URL = "http://localhost:3000/api";
 export const createCard = async (cardData) => {
  try {
  const response = await axios.post(`${API_BASE_URL}/${cardData.spaceId}/cards`, cardData);
- console.log("Card creation response:", response.data);
  return response.data;
  } catch (error) {
     console.error('Error creating card:', error);
@@ -19,7 +18,6 @@ export const createCard = async (cardData) => {
 export const getCards = async (spaceId) => {
   try {
     const response = await axios.get(`${API_BASE_URL}/${spaceId}/cards`);
-    console.log("Get cards response:", response.data);
     return response.data;
   } catch (error) {
     console.error('Error fetching cards:', error);
@@ -31,7 +29,7 @@ export const getCards = async (spaceId) => {
 // Function to upvote a card
 export const upvoteCard = async (spaceId, cardId) => {
     try {
-        const response = await axios.patch(`${API_BASE_URL}/${spaceId}/cards/${cardId}`);
+        const response = await axios.patch(`${API_BASE_URL}/${spaceId}/cards/${cardId}/votes`);
         console.log(response.data); 
         return response.data  
     } catch (error) {

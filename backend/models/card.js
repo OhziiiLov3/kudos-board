@@ -27,6 +27,9 @@ const getAllCards = async (spaceId) => {
     where: {
       space_id: parseInt(spaceId),
     },
+    orderBy: {
+        createdAt: 'desc', // or 'desc' for descending order
+      },
   });
 };
 

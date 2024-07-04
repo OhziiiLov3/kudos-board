@@ -13,7 +13,6 @@ try {
         limit: 8,
      }
     });
-    console.log(response.data);
     return response.data;
 } catch (error) {
      console.error('Error fetching GIFs:', error);

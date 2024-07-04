@@ -27,10 +27,6 @@ const SpacePage = () => {
   const fetchSpace = async () =>{
     try {
       const response = await getSpace(id);
-      console.log('Space data:', response);
-      if (response && response.cards) {
-        console.log('Cards in space:', response.cards);
-      }
       setSpace(response);
     } catch (error) {
       console.error('Error fetching space:', error);
@@ -40,7 +36,10 @@ const SpacePage = () => {
   const fetchCards = async () => {
     try {
       const cardsData = await getCards(id);
-      setCards(cardsData);
+      // const sortedCards = cardsData.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
+      // sort by most votes 
+      const sortedCards = cardsData.sort((a, b) => b.upvotes - a.upvotes);
+      setCards(sortedCards);
     } catch (error) {
       console.error('Error fetching cards:', error);
     }
@@ -49,12 +48,13 @@ const SpacePage = () => {
   const handleCardForm = () =>{
     setOpenCardForm(false);
     fetchSpace();
+    fetchCards();
   }
 
   const handleUpvote  = async (cardId) =>{
     try {
-      await  upvoteCard(id, cardId);
-      fetchSpace();
+      const updatedCard = await  upvoteCard(id, cardId);
+      setCards(cards.map(card=> (card.card_id === cardId ? updatedCard : card)))
     } catch (error) {
       console.error('Error upvoting card:', error);
     }
