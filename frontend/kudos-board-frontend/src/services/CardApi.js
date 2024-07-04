@@ -40,7 +40,7 @@ export const upvoteCard = async (spaceId, cardId) => {
 // Function to delete a card
 export const deleteCard = async (spaceId, cardId) => {
     try {
-        const response = await axios.patch(`${API_BASE_URL}/${spaceId}/cards/${cardId}`);
+        const response = await axios.delete(`${API_BASE_URL}/${spaceId}/cards/${cardId}`);
         console.log(response.data); 
         return response.data  
     } catch (error) {

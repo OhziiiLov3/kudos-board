@@ -62,7 +62,7 @@ const SpacePage = () => {
   const handleDelete  = async (cardId) =>{
     try {
       await deleteCard(id, cardId);
-      fetchSpace();
+      fetchCards();
     } catch (error) {
       console.error('Error upvoting card:', error);
     }
