@@ -37,9 +37,9 @@ export const getSpace = async (id) =>{
   }
 }
 
-export const deleteSpace = async (id) =>{
+export const deleteSpace = async (spaceId) =>{
   try {
-    const response = await axios.delete(`${API_BASE_URL}/spaces/${id}`);
+    const response = await axios.delete(`${API_BASE_URL}/spaces/${spaceId}`);
     console.log(response.data)
     return response.data
   } catch (error) {

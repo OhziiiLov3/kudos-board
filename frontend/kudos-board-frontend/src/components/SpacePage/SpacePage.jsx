@@ -69,7 +69,7 @@ const SpacePage = () => {
   }
 
   return (
-    <div>
+    <>
       <div className="space-card-container">
         <Link to='/' className="back-link">
       <FaArrowLeft />
@@ -102,7 +102,7 @@ const SpacePage = () => {
     <p>No cards available.</p>
   )}
 </div>
-    </div>
+    </>
   );
 };
 

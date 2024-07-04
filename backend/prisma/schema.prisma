@@ -21,7 +21,7 @@ model Space {
   author String?
   createdAt DateTime @default(now())
   updatedAt DateTime? @updatedAt
-  cards Card []
+  cards Card []    
 }
 
 
@@ -35,7 +35,7 @@ model Card {
   upvotes Int @default(0)
   createdAt DateTime @default(now())
   updatedAt DateTime? @updatedAt
-  space Space @relation(fields: [space_id] , references: [space_id])
+  space Space @relation(fields: [space_id] , references: [space_id], onDelete: Cascade)
   space_id Int 
 }
 
