@@ -4,6 +4,7 @@ const spaceController = require('../controllers/spaceController');
 
 
 
+
 // Routes -> /api/spaces
 router.post('/spaces', spaceController.createSpace);
 router.get('/spaces', spaceController.getSpaces);

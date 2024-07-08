@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const spaceRoutes = require("./routes/spaceRoutes");
 const cardRoutes = require("./routes/cardRoutes");
 
+
 const app = express();
 
 const PORT = 3000;
@@ -14,6 +15,7 @@ app.use(bodyParser.json());
 
 app.use('/api', cardRoutes);
 app.use('/api', spaceRoutes);
+
 
 
 
