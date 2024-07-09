@@ -4,10 +4,10 @@ const SpaceModel = require("../models/space");
 
 // create a new space
 const createSpace = async (req, res) => {
-  const { title, category, author } = req.body;
+  const { title, category, author,stickerUrl } = req.body;
   console.log(req.body);
   try {
-    const space = await SpaceModel.createSpace({ title, category, author });
+    const space = await SpaceModel.createSpace({ title, category, author, stickerUrl });
     res.json(space);
   } catch (error) {
     res.status(500).json({ error: error.message });

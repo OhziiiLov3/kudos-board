@@ -137,7 +137,7 @@ const Dashboard = () => {
         {filteredSpaces.map((space, idx) => (
           <div className="space-preview" key={idx}>
             <img
-              src={`https://picsum.photos/200/200?random${space.space_id}`}
+              src={space.stickerUrl || `https://picsum.photos/200/200?random${space.space_id}`}
               alt=""
             />
             <h3>{space.title}</h3>

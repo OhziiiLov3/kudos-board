@@ -1,13 +1,18 @@
 import {useState} from 'react';
 import { createSpace } from '../../services/SpaceApi';
 import "./NewSpaceForm.css"; 
+import { searchGifs } from '../../services/gifApi';
 
 const NewSpaceForm = ({fetchSpaces, toggleForm}) => {
   const [formData, setFormData] = useState({
     title: "",
     author : "",
     category : "",
-  })
+    stickerUrl: "",
+  });
+
+  const [ searchQuery, setSearchQuery] = useState("");
+  const [gifs, setGifs] = useState([]);
 
 
 const handleChange = (e) =>{
@@ -18,6 +23,27 @@ const handleChange = (e) =>{
   }));
 };
 console.log(formData);
+
+
+const handleSearchChange = (e) =>{
+ setSearchQuery(e.target.value);
+};
+
+const handleSearchGifs = async () => {
+  try {
+    const response = await searchGifs(searchQuery);
+    setGifs(response.data);
+  } catch (error) {
+    console.error('Error fetching GIFs:', error);
+  }
+};
+
+const handleSelectGif = (url) => {
+  setFormData((prevFormData) => ({
+    ...prevFormData,
+    stickerUrl: url,
+  }));
+};
 
 
 const handleSubmit = async (e) => {
@@ -44,6 +70,32 @@ const handleSubmit = async (e) => {
     <option value="Thank you">Thank you</option>
     <option value="Inspiration">Inspiration</option>
   </select>
+
+  <div className="giphy-search">
+          <input
+            type="text"
+            placeholder="Search for a sticker"
+            value={searchQuery}
+            onChange={handleSearchChange}
+          />
+          <button type="button" onClick={handleSearchGifs}>Search</button>
+          <div className="giphy-results">
+            {gifs.map((gif) => (
+              <img
+                key={gif.id}
+                src={gif.images.fixed_height_small.url}
+                alt={gif.title}
+                onClick={() => handleSelectGif(gif.images.fixed_height_small.url)}
+              />
+            ))}
+          </div>
+        </div>
+        {formData.stickerUrl && (
+          <div className="selected-sticker">
+            <h3>Selected Sticker</h3>
+            <img src={formData.stickerUrl} alt="Selected Sticker" />
+          </div>
+        )}
    <button type="submit">Submit</button>
    </form>
     </div>

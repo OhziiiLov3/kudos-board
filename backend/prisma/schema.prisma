@@ -19,6 +19,7 @@ model Space {
   title String?
   category String?
   author String?
+  stickerUrl String?  
   createdAt DateTime @default(now())
   updatedAt DateTime? @updatedAt
   cards Card []    
