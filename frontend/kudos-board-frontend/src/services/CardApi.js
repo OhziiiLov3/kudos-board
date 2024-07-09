@@ -49,3 +49,38 @@ export const deleteCard = async (spaceId, cardId) => {
 };
 
 
+// function to add comment to card 
+export const addComment = async(spaceId, cardId, commentData) => {
+ try {
+  const response = await axios.post(`${API_BASE_URL}/${spaceId}/cards/${cardId}/comments`,commentData);
+  return response.data;
+ } catch (error) {
+  console.error('Error adding comment:', error);
+    throw error;
+ }
+};
+
+// function to read all comments 
+export const getComments = async( spaceId,cardId) =>{
+  try {
+    const response = await  axios.get(`${API_BASE_URL}/${spaceId}/cards/${cardId}/comments`);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching comments:', error);
+    throw error;
+  }
+};
+
+// function to delete comments 
+export const deleteComment = async( spaceId,cardId, commentId) =>{
+  try {
+    const response = await  axios.delete(`${API_BASE_URL}/${spaceId}/cards/${cardId}/comments/${commentId}`);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching comments:', error);
+    throw error;
+  }
+};
+
+
+

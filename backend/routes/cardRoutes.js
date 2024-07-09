@@ -13,7 +13,7 @@ router.delete('/:spaceId/cards/:cardId',  cardController.deleteCard); // Delete 
 // comments -> /api/cards/
 router.post('/:spaceId/cards/:cardId/comments', commentController.addComment); // POST -> create new comment 
 router.get('/:spaceId/cards/:cardId/comments', commentController.getAllComments); // GET -> Get all comments 
-
+router.delete('/:spaceId/cards/:cardId/comments/:commentId', commentController.deleteComment) // DELETE -> delete comment
 
 
 

@@ -8,7 +8,9 @@ const addComment = async (cardId, content, author) =>{
         data: {
             content,
             author,
-            card_id: parseInt(cardId)
+            card:{
+              connect: {card_id: parseInt(cardId)}  , // cardId is the ID of an existing card
+            }
         }
     });
     return comment;
@@ -19,7 +21,9 @@ const addComment = async (cardId, content, author) =>{
 
 
 const getAllComments = async (cardId) =>{
-try {
+    
+    try {
+    console.log(`Fetching comments from database for cardId: ${cardId}`);
     const comments = await prisma.comment.findMany({
         where: {card_id: parseInt(cardId)},
         orderBy : { createdAt: 'asc'}
@@ -31,7 +35,20 @@ try {
 };
 
 
+const deleteComment = async (commentId) => {
+    try {
+        const deletedComments = await prisma.comment.delete({
+            where: {comment_id: parseInt(commentId)}
+        });
+        return deletedComments;
+    } catch (error) {
+     throw new Error('Error deleting comment');
+    }
+}
+
+
 module.exports = {
     addComment,
-    getAllComments
+    getAllComments,
+    deleteComment
 }
