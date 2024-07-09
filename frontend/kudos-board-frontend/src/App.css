@@ -2,24 +2,20 @@
 *{
   box-sizing: border-box;
   margin: 0;
-
+  padding: 0;
+ 
 }
 
 body{
   background-color: #F2F2F2;
   font-family: "Raleway", sans-serif;
+  height: 100%;
+
 }
 
-footer {
-    width:100%;
-    background-color:#323232;
-    color: #F2F2F2;
-    padding: 20px;
-    opacity: 0.5;
-    margin-top: auto;
-   
-  }
-  
-  footer p {
-    margin: 0;
-  }
+
+.app-container{
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
