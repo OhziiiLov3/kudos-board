@@ -1,54 +1,82 @@
 import axios from "axios";
-
+import { getToken } from "./UserApi";
 const API_BASE_URL = "http://localhost:3000/api";
 
-// Space API from backend
 
+
+const spaceApi = axios.create({
+  baseURL: API_BASE_URL,
+  headers: {
+    "Content-Type": "application/json",
+  }
+})
+
+// Space API from backend
 // -> fecth all spaces
 export const getSpaces = async (filters) => {
-    try {
-      const response = await axios.get(`${API_BASE_URL}/spaces`, {params: filters});
-      return response.data; 
-    } catch (error) {
-      console.error("Error fetching spaces:", error);
-      throw error;
-    }
-  };
+  try {
+    const token = getToken();
+    const response = await spaceApi.get(`${API_BASE_URL}/spaces`,{
+       params: filters ,
+        headers: {
+          "Authorization": `Bearer ${token}`,
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching spaces:", error);
+    throw error;
+  }
+};
 
 // -> create new space
-export const createSpace = async (spaceData)=>{
- try {
-    const response = await axios.post(`${API_BASE_URL}/spaces`, spaceData)
+export const createSpace = async (spaceData) => {
+  try {
+    const token = getToken();
+    const response = await spaceApi.post(`${API_BASE_URL}/spaces`, spaceData, {
+      headers: {
+        'Authorization': `Bearer ${token}`,
+      },
+    });
+    console.log(response.data);
     return response.data;
- } catch (error) {
-    console.error("Error creating space:", error)
-    throw error
- }
-}
+  } catch (error) {
+    console.error("Error creating space:", error);
+    throw error;
+  }
+};
 // -> fetcch space by Id
-export const getSpace = async (id) =>{
+export const getSpace = async (id) => {
   try {
-    const response = await axios.get(`${API_BASE_URL}/spaces/${id}`);
-    console.log(response.data)
-    return response.data
+      const response = await spaceApi.get(`${API_BASE_URL}/spaces/${id}`, {
+          headers: {
+              'Authorization': `Bearer ${getToken()}`,
+          },
+      });
+      console.log(response.data);
+      return response.data;
   } catch (error) {
-    console.error("Error creating space:", error)
-    throw error
+      console.error("Error fetching space:", error);
+      throw error;
   }
-}
+};
 
-export const deleteSpace = async (spaceId) =>{
+
+export const deleteSpace = async (spaceId) => {
   try {
-    const response = await axios.delete(`${API_BASE_URL}/spaces/${spaceId}`);
-    console.log(response.data)
-    return response.data
+      const response = await spaceApi.delete(`${API_BASE_URL}/spaces/${spaceId}`, {
+          headers: {
+              'Authorization': `Bearer ${getToken()}`,
+          },
+      });
+      console.log(response.data);
+      return response.data;
   } catch (error) {
-    console.error("Error creating space:", error)
-    throw error
+      console.error("Error deleting space:", error);
+      throw error;
   }
-}
-
-
+};
 
 // const api = axios.create({
 //     baseURL: 'https://site-kudos-board-exemplar.onrender.com'

@@ -3,6 +3,7 @@ import "../Dashboard/Dashboard.css";
 import Header from "../Header/Header";
 import NewSpaceForm from "../NewSpaceForm/NewSpaceForm";
 import { getSpaces, deleteSpace } from "../../services/SpaceApi";
+import {getToken} from  '../../services/UserApi'
 
 const Dashboard = () => {
   const [spaces, setSpaces] = useState([]);
@@ -10,8 +11,14 @@ const Dashboard = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [showForm, setShowForm] = useState(false);
 
+
   useEffect(() => {
-    fetchSpaces();
+    const token = getToken();
+    if(token){
+      fetchSpaces();
+    }else{
+      console.error("No token found, please login first");
+    }
   }, []);
   
 
@@ -20,7 +27,6 @@ const Dashboard = () => {
       const spaces = await getSpaces();
       setSpaces(spaces);
       setFilterSpaces(spaces);
-      console.log(spaces);
     } catch (error) {
       console.error("Error fetching boards:", error);
     }

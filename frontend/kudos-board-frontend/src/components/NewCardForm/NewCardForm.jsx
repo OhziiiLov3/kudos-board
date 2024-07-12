@@ -45,7 +45,8 @@ const NewCardForm = ({ spaceId, onCardCreated }) => {
     try {
       console.log("spaceId:",spaceId);
       console.log("Card Data:", cardData);
-      await createCard({ ...cardData, spaceId });
+      const username = "";
+      await createCard({ ...cardData, spaceId, author: username });
       onCardCreated();
     } catch (error) {
       console.error("Error creating space:", error);

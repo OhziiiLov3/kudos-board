@@ -2,7 +2,7 @@ const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
 // POST -> Create a card
-const createCard = async ({ title, author, message, gifUrl, spaceId }) => {
+const createCard = async ({ title, author,authorId, message, gifUrl, spaceId }) => {
   try {
     const card = await prisma.card.create({
       data: {
@@ -10,6 +10,7 @@ const createCard = async ({ title, author, message, gifUrl, spaceId }) => {
         message,
         author,
         gifUrl,
+        authorId: parseInt(authorId),
         space: {
           connect: { space_id: parseInt(spaceId) }, // spaceId is the ID of an existing space
         },

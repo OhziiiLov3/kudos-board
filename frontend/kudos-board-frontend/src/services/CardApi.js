@@ -1,11 +1,20 @@
 import axios from "axios";
+import {getToken} from '../services/UserApi';
 
 const API_BASE_URL = "http://localhost:3000/api";
 
 
 export const createCard = async (cardData) => {
  try {
- const response = await axios.post(`${API_BASE_URL}/${cardData.spaceId}/cards`, cardData);
+  const token = getToken();
+  console.log("Token:", token);
+  console.log("Card Data:", cardData);
+ const response = await axios.post(`${API_BASE_URL}/${cardData.spaceId}/cards`, cardData,{
+  headers:{
+    'Authorization': `Bearer ${token}`,
+  },
+ });
+ console.log("Response:", response);
  return response.data;
  } catch (error) {
     console.error('Error creating card:', error);
@@ -29,7 +38,12 @@ export const getCards = async (spaceId) => {
 // Function to upvote a card
 export const upvoteCard = async (spaceId, cardId) => {
     try {
-        const response = await axios.patch(`${API_BASE_URL}/${spaceId}/cards/${cardId}/votes`);
+      const token = getToken();
+        const response = await axios.patch(`${API_BASE_URL}/${spaceId}/cards/${cardId}/votes`,{
+          headers: {
+            'Authorization': `Bearer ${token}`,
+          }
+        });
         console.log(response.data); 
         return response.data  
     } catch (error) {
@@ -40,7 +54,12 @@ export const upvoteCard = async (spaceId, cardId) => {
 // Function to delete a card
 export const deleteCard = async (spaceId, cardId) => {
     try {
-        const response = await axios.delete(`${API_BASE_URL}/${spaceId}/cards/${cardId}`);
+      const token = getToken();
+        const response = await axios.delete(`${API_BASE_URL}/${spaceId}/cards/${cardId}`,{
+          headers:{
+            'Authorization': `Bearer ${token}`,
+          }
+        });
         console.log(response.data); 
         return response.data  
     } catch (error) {
@@ -52,7 +71,12 @@ export const deleteCard = async (spaceId, cardId) => {
 // function to add comment to card 
 export const addComment = async(spaceId, cardId, commentData) => {
  try {
-  const response = await axios.post(`${API_BASE_URL}/${spaceId}/cards/${cardId}/comments`,commentData);
+  const token = getToken();
+  const response = await axios.post(`${API_BASE_URL}/${spaceId}/cards/${cardId}/comments`,commentData,{
+    headers: {
+      'Authorization': `Bearer ${token}`,
+    }
+  });
   return response.data;
  } catch (error) {
   console.error('Error adding comment:', error);
@@ -74,7 +98,12 @@ export const getComments = async( spaceId,cardId) =>{
 // function to delete comments 
 export const deleteComment = async( spaceId,cardId, commentId) =>{
   try {
-    const response = await  axios.delete(`${API_BASE_URL}/${spaceId}/cards/${cardId}/comments/${commentId}`);
+    const token = getToken();
+    const response = await  axios.delete(`${API_BASE_URL}/${spaceId}/cards/${cardId}/comments/${commentId}`,{
+      headers: {
+        'Authorization': `Bearer ${token}`,
+      }
+    });
     return response.data;
   } catch (error) {
     console.error('Error fetching comments:', error);

@@ -1,7 +1,8 @@
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import { createSpace } from '../../services/SpaceApi';
 import "./NewSpaceForm.css"; 
 import { searchGifs } from '../../services/gifApi';
+import { getCurrentUser } from '../../services/UserApi';
 
 const NewSpaceForm = ({fetchSpaces, toggleForm}) => {
   const [formData, setFormData] = useState({
@@ -13,6 +14,24 @@ const NewSpaceForm = ({fetchSpaces, toggleForm}) => {
 
   const [ searchQuery, setSearchQuery] = useState("");
   const [gifs, setGifs] = useState([]);
+  const [currentUser, setCurrentUser ] = useState(null);
+
+
+useEffect(()=>{
+  fetchCurrentUser();
+},[]);
+
+
+const fetchCurrentUser = async () => {
+try {
+  const userData = await getCurrentUser();
+  // Set current user data received from API
+  setCurrentUser(userData);
+} catch (error) {
+  console.error('Error fetching current user:', error);
+}
+};
+
 
 
 const handleChange = (e) =>{
@@ -49,9 +68,16 @@ const handleSelectGif = (url) => {
 const handleSubmit = async (e) => {
   e.preventDefault();
   try {
-    await createSpace(formData);
-    fetchSpaces();
-    toggleForm(); 
+    if(currentUser){
+      await createSpace({
+        ...formData,
+        author: currentUser.username,
+      });
+      fetchSpaces();
+      toggleForm(); 
+    }else{
+      console.error('Current user data not available');
+    }
   } catch (error) {
     console.error("Error creating space:", error);
   }
@@ -61,7 +87,7 @@ const handleSubmit = async (e) => {
       <h2>Create a Hi-Five</h2>
       <form onSubmit={handleSubmit}>
    <input type="text" placeholder="Title" name="title" value={formData.title}  onChange={handleChange}/>
-   <input type="text" placeholder="Author" name="author" value={formData.author} onChange={handleChange}/>
+   {/* <input type="text" placeholder="Author" name="author" value={formData.author} onChange={handleChange}/> */}
    <select name="category" value={formData.category}  onChange={handleChange} >
     <option value="">Select a category</option>
     {/* <option value="All">All</option>

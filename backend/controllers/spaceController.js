@@ -1,24 +1,36 @@
 // const { PrismaClient } = require("@prisma/client");
 // const prisma = new PrismaClient();
 const SpaceModel = require("../models/space");
-
+const UserModel = require("../models/user");
 // create a new space
 const createSpace = async (req, res) => {
-  const { title, category, author,stickerUrl } = req.body;
-  console.log(req.body);
+  const { title, category, stickerUrl, authorId } = req.body;
+  console.log("Request body:", req.body);
+  console.log("Author ID:", authorId);
   try {
-    const space = await SpaceModel.createSpace({ title, category, author, stickerUrl });
+    const user = await UserModel.findUserById(authorId);
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+    const space = await SpaceModel.createSpace({
+      title,
+      category,
+      authorId,
+      stickerUrl,
+      author: user.username,
+    });
     res.json(space);
   } catch (error) {
+    console.error("Error creating space:", error);
     res.status(500).json({ error: error.message });
   }
 };
 
 // get all spaces
 const getSpaces = async (req, res) => {
-  const { category, title, author} = req.query;
+  const { category, title, author } = req.query;
   try {
-    const filters = {category, title, author}; 
+    const filters = { category, title, author };
     spaces = await SpaceModel.getAllSpaces(filters);
     console.log(spaces);
     res.json(spaces);

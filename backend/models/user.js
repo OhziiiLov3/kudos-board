@@ -12,9 +12,9 @@ const findUserByEmail = async (email)=>{
     })
 }
 
-const findUserById = async (email)=>{
+const findUserById = async (userId)=>{
     return prisma.user.findUnique({
-        where: {user_id}
+        where: {user_id: userId},
     });
 }
 

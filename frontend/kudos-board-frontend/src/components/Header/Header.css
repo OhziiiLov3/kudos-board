@@ -1,4 +1,4 @@
-.banner{
+/* .banner{
  text-align: center;
  margin: 0 20px;
 }
@@ -8,4 +8,37 @@
   width: 150px;
   height: auto;
   display: inline-block;
+} */
+
+
+
+
+.banner {
+  display: flex;
+  justify-content: center; 
+  align-items: center;
+  position: relative;
+  padding: 20px;
+}
+
+.banner img {
+  width: 150px;
+  height: auto;
+}
+
+.login-container {
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 20px;
+  margin-top: 10px;
+}
+
+.login-toggle {
+  text-decoration: none;
+  color: #4c58b5;
+  font-size: 1rem;
+}
+
+.login-toggle:hover {
+  color: #323232;
 }
