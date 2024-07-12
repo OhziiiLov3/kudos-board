@@ -9,7 +9,9 @@ export const createCard = async (cardData) => {
   const token = getToken();
   console.log("Token:", token);
   console.log("Card Data:", cardData);
- const response = await axios.post(`${API_BASE_URL}/${cardData.spaceId}/cards`, cardData,{
+
+ const response = await axios.post(`${API_BASE_URL}/${cardData.spaceId}/cards`,
+   cardData,{
   headers:{
     'Authorization': `Bearer ${token}`,
   },
@@ -26,7 +28,12 @@ export const createCard = async (cardData) => {
 // Function to get all cards for a space
 export const getCards = async (spaceId) => {
   try {
-    const response = await axios.get(`${API_BASE_URL}/${spaceId}/cards`);
+    const token = getToken();
+    const response = await axios.get(`${API_BASE_URL}/${spaceId}/cards`,{
+      headers:{
+        'Authorization' : `Bearer ${token}`
+      }
+    });
     return response.data;
   } catch (error) {
     console.error('Error fetching cards:', error);
@@ -38,8 +45,8 @@ export const getCards = async (spaceId) => {
 // Function to upvote a card
 export const upvoteCard = async (spaceId, cardId) => {
     try {
-      const token = getToken();
-        const response = await axios.patch(`${API_BASE_URL}/${spaceId}/cards/${cardId}/votes`,{
+     const token = getToken();
+        const response = await axios.patch(`${API_BASE_URL}/${spaceId}/cards/${cardId}/votes`,{},{
           headers: {
             'Authorization': `Bearer ${token}`,
           }

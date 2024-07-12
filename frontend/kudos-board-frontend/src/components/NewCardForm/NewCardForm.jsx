@@ -1,20 +1,36 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { searchGifs } from "../../services/gifApi";
 import { createCard } from "../../services/CardApi";
 import "../NewCardForm/NewCardForm.css";
+import { getCurrentUser } from "../../services/UserApi";
 
 const NewCardForm = ({ spaceId, onCardCreated }) => {
   const [cardData, setCardData] = useState({
     title: "",
     message: "",
     gifUrl: "",
-    author: "",
   });
 
   const [gifs, setGifs] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedGifUrl, setSelectedGifUrl] = useState("");
   const [showCopiedMessage, setShowCopiedMessage] = useState(false);
+  const [currentUser, setCurrentUser] = useState(null);
+
+
+  useEffect(() => {
+    fetchCurrentUser();
+  }, []);
+
+
+  const fetchCurrentUser = async () =>{
+    try {
+      const userData = await getCurrentUser();
+      setCurrentUser(userData);
+    } catch (error) {
+      console.error("Error fetching current user:", error);
+    }
+  }
 
   const handleGifSearch = async () => {
     console.log("Searching GIFs for query:", searchQuery);
@@ -45,8 +61,8 @@ const NewCardForm = ({ spaceId, onCardCreated }) => {
     try {
       console.log("spaceId:",spaceId);
       console.log("Card Data:", cardData);
-      const username = "";
-      await createCard({ ...cardData, spaceId, author: username });
+      const {username, user_id} = currentUser;
+      await createCard({ ...cardData, spaceId, author: username, authorId: user_id });
       onCardCreated();
     } catch (error) {
       console.error("Error creating space:", error);
@@ -120,13 +136,13 @@ const NewCardForm = ({ spaceId, onCardCreated }) => {
           Copy URL
         </button>
         {showCopiedMessage && <div className="copied-message">Copied to clipboard!</div>}
-        <input
+        {/* <input
           type="text"
           placeholder="Author"
           name="author"
           value={cardData.author}
           onChange={handleChange}
-        />
+        /> */}
 
         <button className="card-btn" type="submit">
           Create Card

@@ -6,6 +6,7 @@ const addComment = async (req, res) => {
   const { content, authorId } = req.body;
   try {
     const user = await UserModel.findUserById(authorId);
+   
     if (!user) {
       return res.status(404).json({ error: "User not found" });
     }

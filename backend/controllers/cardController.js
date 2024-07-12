@@ -1,22 +1,28 @@
 const CardModel = require("../models/card");
+const UserModel = require("../models/user");
+
 
 // create a new space
 const createCard = async (req, res) => {
-  const { title, authorId, message, gifUrl } = req.body;
+  const { title, message, gifUrl } = req.body;
   const { spaceId } = req.params;
+  console.log("Request",req.body);
   try {
+    const authorId = req.user.user_id;
     const user = await UserModel.findUserById(authorId);
+    console.log("user",user);
+    console.log("username",user.username);
     if (!user) {
       return res.status(404).json({ error: "User not found" });
     }
     const card = await CardModel.createCard({
       title,
       message,
-      authorId,
       gifUrl,
-      author: user.username,
+      authorId: user.user_id,
       spaceId: parseInt(spaceId),
     });
+    console.log("created Card",card);
     res.json(card);
   } catch (error) {
     console.error("Error creating card:", error);
