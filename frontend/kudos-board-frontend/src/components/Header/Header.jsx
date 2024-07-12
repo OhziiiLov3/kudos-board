@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState , useEffect} from "react";
 import "../Header/Header.css"
 import logo from '../../assets/images/logo.png'
 import LoginForm from "../LoginForm/LoginForm";
@@ -10,8 +10,26 @@ const Header = () => {
 const [showLoginForm, setShowLoginForm] = useState(false);
 const [isLoginMode, setIsLoginMode] = useState(true);
 const [isLoggedIn, setIsLoggedIn] = useState(false);
-const [userEmail, setUserEmail] = useState("");
+const [username, setUsername] = useState("");
 
+
+
+useEffect(()=>{
+  const checkLoggedIn = async () =>{
+
+    const token = localStorage.getItem('token');
+    if(token){
+      setIsLoggedIn(true);
+      try {
+        const user = await UserApi.getCurrentUser();
+        setUsername(user.username)
+      } catch (error) {
+        console.error("Failed to fetch user details:", error);
+      }
+    }
+  };
+  checkLoggedIn();
+  },[])
 
 const toggleLoginModal = () =>{
   setShowLoginForm(!showLoginForm)
@@ -30,14 +48,14 @@ const handleLogout = async () => {
   try {
     await UserApi.logout();
     setIsLoggedIn(false);
-    setUserEmail("");
+    setUsername("");
   } catch (error) {
     console.error("Logout error:", error);
   }
 };
 
 const handleLogin = (username) => {
-  setUserEmail(username); // Set user email on successful login
+  setUsername(username); // Set user email on successful login
   setIsLoggedIn(true);
 };
 
@@ -45,7 +63,7 @@ const handleLogin = (username) => {
     <>
     <div className="login-container">
         <a href="#" className="login-toggle" onClick={isLoggedIn ? handleLogout : toggleLoginModal}>
-        {isLoggedIn ? `Logout (${userEmail})` : isLoginMode ? "Login" : "Register"}
+        {isLoggedIn ? `Logout (${username}) ` : isLoginMode ? "Login" : "Register"}
         </a>
     </div>
     <header className="banner">

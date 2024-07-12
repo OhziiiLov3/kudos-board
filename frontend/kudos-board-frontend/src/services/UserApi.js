@@ -46,7 +46,7 @@ export const login = async (email, password) => {
         const token = response.data.token;
         console.log("Received Token:", token);
         localStorage.setItem('token', token);
-        console.log("Stored Token in localStorage:", localStorage.getItem('token')); // Verify it's stored
+        console.log("Stored Token in localStorage:", localStorage.getItem('token')); 
         return response.data;
     } catch (error) {
         throw error.response.data.error;
