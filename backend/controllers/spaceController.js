@@ -4,19 +4,22 @@ const SpaceModel = require("../models/space");
 const UserModel = require("../models/user");
 // create a new space
 const createSpace = async (req, res) => {
-  const { title, category, stickerUrl, authorId } = req.body;
-  console.log("Request body:", req.body);
-  console.log("Author ID:", authorId);
+  const { title, category, stickerUrl} = req.body;
+
   try {
+    const authorId = req.user.user_id; 
+   
+
     const user = await UserModel.findUserById(authorId);
     if (!user) {
       return res.status(404).json({ error: "User not found" });
     }
+
     const space = await SpaceModel.createSpace({
       title,
       category,
-      authorId,
       stickerUrl,
+      authorId,
       author: user.username,
     });
     res.json(space);

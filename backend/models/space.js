@@ -5,7 +5,14 @@ const prisma = new PrismaClient();
 
 // Create a space 
 const createSpace = async(data) =>{
-return prisma.space.create({data});
+return prisma.space.create({
+    data:{
+     title: data.title,
+     category: data.category,
+     stickerUrl: data.stickerUrl,
+     author: { connect: { user_id: data.authorId } },
+    }
+});
 }
 
 
