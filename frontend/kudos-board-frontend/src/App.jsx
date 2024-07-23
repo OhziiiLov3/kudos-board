@@ -7,6 +7,7 @@ import Footer from "./components/Footer/Footer";
 import SpacePage from "./components/SpacePage/SpacePage";
 import AuthRoute from "./components/AuthRoute/AuthRoute";
 import LoginForm from "./components/LoginForm/LoginForm";
+import PageNotFound from "./components/PageNotFound/PageNotFound";
 import UserApi from "./services/UserApi";
 
 function App() {
@@ -101,6 +102,7 @@ function App() {
               />
             }
           />
+           <Route path="*" element={<PageNotFound />}/>
         </Routes>
         <div className="sign-up-container">
           {isLoginModalOpen && (
