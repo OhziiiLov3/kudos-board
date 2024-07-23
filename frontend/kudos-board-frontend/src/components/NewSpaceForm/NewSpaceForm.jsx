@@ -1,6 +1,6 @@
 import {useState, useEffect} from 'react';
 import { createSpace } from '../../services/SpaceApi';
-import "./NewSpaceForm.css"; 
+import "../NewCardForm/NewCardForm.css"; 
 import { searchGifs } from '../../services/gifApi';
 import { getCurrentUser } from '../../services/UserApi';
 
@@ -104,7 +104,7 @@ const handleSubmit = async (e) => {
             value={searchQuery}
             onChange={handleSearchChange}
           />
-          <button type="button" onClick={handleSearchGifs}>Search</button>
+          <button type="button"  onClick={handleSearchGifs}>Search</button>
           <div className="giphy-results">
             {gifs.map((gif) => (
               <img

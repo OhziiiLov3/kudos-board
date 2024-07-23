@@ -66,17 +66,15 @@ const Dashboard = ({openLoginModal, isLoggedIn, username, handleLogout, handleLo
     setSearchQuery(searchInput);
     filterSpaces(searchInput);
   };
-
   const filterSpaces = (searchInput) => {
     const filtered = spaces.filter(
       (space) =>
-        space.title.toLowerCase().includes(searchInput.toLowerCase()) ||
-        space.category.toLowerCase().includes(searchInput.toLowerCase()) ||
-        space.author.toLowerCase().includes(searchInput.toLowerCase())
+        (space.title && space.title.toLowerCase().includes(searchInput.toLowerCase())) ||
+        (space.category && space.category.toLowerCase().includes(searchInput.toLowerCase())) ||
+        (space.author && space.author.toLowerCase().includes(searchInput.toLowerCase()))
     );
     setFilterSpaces(filtered);
   };
-
   const handleCategoryClick = (category) => {
     if (category === "All") {
       setFilterSpaces(spaces);
@@ -94,14 +92,7 @@ const Dashboard = ({openLoginModal, isLoggedIn, username, handleLogout, handleLo
   return (
     <div className="dashboard">
       <Header isLoggedIn={isLoggedIn} username={username} handleLogout={handleLogout}  handleLogin={handleLogin} />
-      <div className="search-bar">
-        <input
-          type="text"
-          placeholder="Search Hi-Fives..."
-          value={searchQuery}
-          onChange={handleInputChange}
-        />
-      </div>
+      
       <div className="category-btns">
         <button
           className="filter-btn"
@@ -134,6 +125,14 @@ const Dashboard = ({openLoginModal, isLoggedIn, username, handleLogout, handleLo
           Inspiration
         </button>
       </div>
+      <div className="search-bar">
+        <input
+          type="text"
+          placeholder="Search Hi-Fives..."
+          value={searchQuery}
+          onChange={handleInputChange}
+        />
+      </div>
       <div className="create-five-container">
         <button className="create-five-btn filter-btn" onClick={toggleForm}>
           Create a Hi-Five
@@ -153,11 +152,11 @@ const Dashboard = ({openLoginModal, isLoggedIn, username, handleLogout, handleLo
       <section className="space-grid">
         {filteredSpaces.map((space, idx) => (
           <div className="space-preview" key={idx}>
+            <h3>{space.title}</h3>
             <img
               src={space.stickerUrl || `https://picsum.photos/200/200?random${space.space_id}`}
               alt=""
             />
-            <h3>{space.title}</h3>
             <p>{space.category}</p>
             <div className="btn-container">
               <a href={`/spaces/${space.space_id}`} onClick={(e) => {
@@ -168,7 +167,7 @@ const Dashboard = ({openLoginModal, isLoggedIn, username, handleLogout, handleLo
                 className="board-card btn filter-btn"
                 onClick={() => handleDeleteSpace(space.space_id)}
               >
-                Delete Space
+                Delete 
               </button>
             </div>
           </div>

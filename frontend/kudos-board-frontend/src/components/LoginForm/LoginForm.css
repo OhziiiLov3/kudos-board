@@ -18,8 +18,9 @@
     padding: 10px 20px;
     border: none;
     border-radius: 5px;
-    background-color: #4c58b5;
-    color: white;
+    background-color: #f3bb2c;
+    color: #323232;
+    font-weight: 700;
     cursor: pointer;
     transition: background-color 0.3s ease;
     margin: 10px 5px; 
@@ -27,6 +28,7 @@
 
 .login-form button:hover {
     background-color: #323232;
+    color: #fafbfc;
 }
 
  .error-message {

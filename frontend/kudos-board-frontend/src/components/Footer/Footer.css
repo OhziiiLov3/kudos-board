@@ -1,10 +1,11 @@
 footer {
     width:100%;
-    background-color:#323232;
-    color: #F2F2F2;
+    background-color:#fbbf24;
+    color: #181a1c;
     padding: 20px;
-    opacity: 0.5;
+    opacity: 0.6;
     margin-top: auto;
+    font-weight: 500;
    
   }
   

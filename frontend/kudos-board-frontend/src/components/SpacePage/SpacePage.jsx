@@ -79,7 +79,7 @@ const SpacePage = ({ isLoggedIn, username, handleLogout, handleLogin }) => {
         <Header isLoggedIn={isLoggedIn} username={username} handleLogout={handleLogout} handleLogin={handleLogin} />
         { space ?  <h1>{space.title}</h1> : <p>Loading</p> }
         <div className="create-card-container">
-          <button className="create-card-btn filter-btn" onClick={()=> setOpenCardForm((true))}>
+          <button className="create-card-btn" onClick={()=> setOpenCardForm((true))}>
             Create a Card
           </button>
         </div>

@@ -18,7 +18,59 @@
     padding: 10px 0;
     width: 50%;
 }
+.create-card-btn {
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
+    padding: 10px 20px;
+    width: auto;
+    border-radius: 6px;
+    font-weight: 300;
+    margin: 5px;
+    color: #F2F2F2;
+    background-color: #4c58b5;
+    transition: background-color 200ms, box-shadow 200ms;
+    cursor: pointer;
+    border: none;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), 0 4px 8px rgba(0, 0, 0, 0.1);
+}
 
+.create-card-btn:hover {
+    background-color: #323232;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.create-card-btn:active {
+    background-color: #323232;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+
+.create-card-btn:focus {
+    outline: 2px solid #323232;
+    background-color: #4c58b5;
+    outline-offset: 2px;
+}
+
+
+.create-card-btn {
+    position: relative;
+    overflow: hidden;
+}
+
+.create-card-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 200%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(255,255,255,0.1), rgba(255,255,255,0));
+    transition: left 0.3s ease;
+}
+
+.create-card-btn:hover::before {
+    left: -50%;
+}
 
 
 .space-five-btn{
@@ -31,14 +83,15 @@
     color: #323232; 
 }
 
-/* Cards Container */
+
 .cards-container {
     display: grid; 
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); 
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); 
     gap: 20px; 
-      margin: 0;
+    margin: 0;
     padding: 20px;
     background-color: #f9f9f9; 
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
-   
   }
+
+  

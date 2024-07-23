@@ -89,7 +89,8 @@ try {
    const canDelete = (itemAuthorId) => currentUser && currentUser.user_id === itemAuthorId;
 
   return (
-    <div className="card">
+    <div className="comment-card-container">
+    <div className="comment-card">
     <h3>{title}</h3>
     <div className="card-content">
     {gifUrl && <img src={gifUrl} alt="GIF" />}
@@ -97,7 +98,7 @@ try {
     <p><strong>By:</strong> {author ? author.username : "Unknown"}</p>
     </div>
     <div className="card-footer">
-      <button className='upvote-button' onClick={() => onUpvote(card_id)}> <SlLike /> {upvotes}</button>
+      <button className='upvote-button' onClick={() => onUpvote(card_id)}> <SlLike className="like-icon" /> {upvotes}</button>
       {canDelete(authorId) && (
           <button className="delete-button" onClick={() => onDelete(card_id)}>
             <FaRegTrashCan />
@@ -124,11 +125,14 @@ try {
         value={newComment}
         onChange={(e) => setNewComment(e.target.value)}
       />
-      <button className="filter-btn" onClick={handleAddComment}>Add Comment</button>
-      <button className="filter-btn" onClick={toggleComments}>
+      <div className="comment-btn-container">
+      <button className="add-comment-btn" onClick={handleAddComment}>Add Comment</button>
+      <button className="delete-comment-btn" onClick={toggleComments}>
         {showComments ? 'Hide Comments' : 'Show Comments'}
       </button>
+      </div>
     </div>
+  </div>
   </div>
 );
 };
