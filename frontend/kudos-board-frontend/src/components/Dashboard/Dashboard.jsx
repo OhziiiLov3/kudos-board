@@ -6,7 +6,7 @@ import NewSpaceForm from "../NewSpaceForm/NewSpaceForm";
 import { getSpaces, deleteSpace } from "../../services/SpaceApi";
 
 
-const Dashboard = ({openLoginModal}) => {
+const Dashboard = ({openLoginModal, isLoggedIn, username, handleLogout}) => {
   const [spaces, setSpaces] = useState([]);
   const [filteredSpaces, setFilterSpaces] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
@@ -93,7 +93,7 @@ const Dashboard = ({openLoginModal}) => {
 
   return (
     <div className="dashboard">
-      <Header />
+      <Header isLoggedIn={isLoggedIn} username={username} handleLogout={handleLogout}   />
       <div className="search-bar">
         <input
           type="text"
@@ -161,7 +161,7 @@ const Dashboard = ({openLoginModal}) => {
             <p>{space.category}</p>
             <div className="btn-container">
               <a href={`/spaces/${space.space_id}`} onClick={(e) => {
-                  e.preventDefault(); // Prevent default link behavior
+                  e.preventDefault(); 
                   handleSpaceLinkClick(space.space_id);
                 }}>See Space</a>
               <button

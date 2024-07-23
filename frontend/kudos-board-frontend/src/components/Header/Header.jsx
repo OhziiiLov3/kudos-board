@@ -1,4 +1,4 @@
-import { useState , useEffect} from "react";
+import { useState } from "react";
 import "../Header/Header.css"
 import logo from '../../assets/images/logo.png'
 import LoginForm from "../LoginForm/LoginForm";
@@ -7,31 +7,14 @@ import {useNavigate} from "react-router-dom";
 
  
 
-const Header = () => {
+const Header = ({isLoggedIn, username, handleLogout,handleLogin }) => {
 const [showLoginForm, setShowLoginForm] = useState(false);
 const [isLoginMode, setIsLoginMode] = useState(true);
-const [isLoggedIn, setIsLoggedIn] = useState(false);
-const [username, setUsername] = useState("");
 const navigate = useNavigate();
 
 
 
-useEffect(()=>{
-  const checkLoggedIn = async () =>{
 
-    const token = localStorage.getItem('token');
-    if(token){
-      setIsLoggedIn(true);
-      try {
-        const user = await UserApi.getCurrentUser();
-        setUsername(user.username)
-      } catch (error) {
-        console.error("Failed to fetch user details:", error);
-      }
-    }
-  };
-  checkLoggedIn();
-  },[])
 
 const toggleLoginModal = () =>{
   setShowLoginForm(!showLoginForm)
@@ -46,26 +29,22 @@ const closeModal = () => {
   setShowLoginForm(false);
 };
 
-const handleLogout = async () => {
+const onLogout = async () => {
   try {
     await UserApi.logout();
-    setIsLoggedIn(false);
-    setUsername("");
+    handleLogout();
     navigate('/');
   } catch (error) {
     console.error("Logout error:", error);
   }
 };
 
-const handleLogin = (username) => {
-  setUsername(username); // Set user email on successful login
-  setIsLoggedIn(true);
-};
+
 
   return (
     <>
     <div className="login-container">
-        <a href="#" className="login-toggle" onClick={isLoggedIn ? handleLogout : toggleLoginModal}>
+        <a href="#" className="login-toggle" onClick={isLoggedIn ? onLogout  : toggleLoginModal}>
         {isLoggedIn ? `Logout (${username}) ` : isLoginMode ? "Login" : "Register"}
         </a>
     </div>
