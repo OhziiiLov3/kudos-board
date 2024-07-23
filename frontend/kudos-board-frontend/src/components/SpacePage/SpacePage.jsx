@@ -11,7 +11,7 @@ import Card from '../Card/Card';
 
 
 
-const SpacePage = () => {
+const SpacePage = ({ isLoggedIn, username, handleLogout, handleLogin }) => {
   const [space, setSpace] = useState(null);
   const [openCardForm , setOpenCardForm ] = useState(false)
   const {id} = useParams();
@@ -76,7 +76,7 @@ const SpacePage = () => {
         <Link to='/' className="back-link">
       <FaArrowLeft />
         </Link>
-        <Header />
+        <Header isLoggedIn={isLoggedIn} username={username} handleLogout={handleLogout} handleLogin={handleLogin} />
         { space ?  <h1>{space.title}</h1> : <p>Loading</p> }
         <div className="create-card-container">
           <button className="create-card-btn filter-btn" onClick={()=> setOpenCardForm((true))}>

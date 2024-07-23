@@ -6,7 +6,7 @@ import NewSpaceForm from "../NewSpaceForm/NewSpaceForm";
 import { getSpaces, deleteSpace } from "../../services/SpaceApi";
 
 
-const Dashboard = ({openLoginModal, isLoggedIn, username, handleLogout}) => {
+const Dashboard = ({openLoginModal, isLoggedIn, username, handleLogout, handleLogin}) => {
   const [spaces, setSpaces] = useState([]);
   const [filteredSpaces, setFilterSpaces] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
@@ -93,7 +93,7 @@ const Dashboard = ({openLoginModal, isLoggedIn, username, handleLogout}) => {
 
   return (
     <div className="dashboard">
-      <Header isLoggedIn={isLoggedIn} username={username} handleLogout={handleLogout}   />
+      <Header isLoggedIn={isLoggedIn} username={username} handleLogout={handleLogout}  handleLogin={handleLogin} />
       <div className="search-bar">
         <input
           type="text"

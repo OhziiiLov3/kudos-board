@@ -3,7 +3,7 @@ import authApi from "../../services/UserApi";
 import "../LoginForm/LoginForm.css";
 
 
-const LoginForm = ({ isLoginMode, toggleMode, closeModal, setIsLoggedIn, handleLogin }) => {
+const LoginForm = ({ isLoginMode, toggleMode, closeModal, handleLogin }) => {
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -21,7 +21,7 @@ const LoginForm = ({ isLoginMode, toggleMode, closeModal, setIsLoggedIn, handleL
         console.log("Login Successful:", token);
         localStorage.setItem('token', token);
         localStorage.setItem('userId', user_id);
-        setIsLoggedIn(true);
+        // setIsLoggedIn(true);
         handleLogin(email);
         closeModal();
 
@@ -35,13 +35,13 @@ const LoginForm = ({ isLoginMode, toggleMode, closeModal, setIsLoggedIn, handleL
         const {user_id, token} = loginResponse;
         localStorage.setItem('token', token);
         localStorage.setItem('userId', user_id);
-        setIsLoggedIn(true);
+        // setIsLoggedIn(true);
         handleLogin(email);
         closeModal();
     }
     } catch (error) {
      
-      const errorMessage = error.message || "An unknown error occurred.";
+            const errorMessage = error.message || "An unknown error occurred.";
       setError(errorMessage);
       console.log("Error message set to:", errorMessage);
 

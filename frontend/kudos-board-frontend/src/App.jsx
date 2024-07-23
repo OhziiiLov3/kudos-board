@@ -1,6 +1,6 @@
 // import { useState } from 'react'
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import { useState, useEffect} from "react";
+import { useState, useEffect } from "react";
 import "./App.css";
 import Dashboard from "./components/Dashboard/Dashboard";
 import Footer from "./components/Footer/Footer";
@@ -9,30 +9,30 @@ import AuthRoute from "./components/AuthRoute/AuthRoute";
 import LoginForm from "./components/LoginForm/LoginForm";
 import UserApi from "./services/UserApi";
 
-
 function App() {
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const [isLoginMode, setIsLoginMode] = useState(true);
   const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem("token"));
-  const [username, setUsername] = useState(localStorage.getItem("username") || "");
-  
-useEffect(()=>{
-  const checkLoggedIn = async () =>{
+  const [username, setUsername] = useState(
+    localStorage.getItem("username") || ""
+  );
 
-    const token = localStorage.getItem('token');
-    if(token){
-      setIsLoggedIn(true);
-      try {
-        const user = await UserApi.getCurrentUser();
-        setUsername(user.username)
-      } catch (error) {
-        console.error("Failed to fetch user details:", error);
+  useEffect(() => {
+    const checkLoggedIn = async () => {
+      const token = localStorage.getItem("token");
+      if (token) {
+        setIsLoggedIn(true);
+        try {
+          const user = await UserApi.getCurrentUser();
+          setUsername(user.username);
+        } catch (error) {
+          console.error("Failed to fetch user details:", error);
+        }
       }
-    }
-  };
-  checkLoggedIn();
-  },[])
- 
+    };
+    checkLoggedIn();
+  }, []);
+
   const toggleMode = () => {
     setIsLoginMode(!isLoginMode);
   };
@@ -63,18 +63,29 @@ useEffect(()=>{
         <Routes>
           <Route
             path="/"
-            element={<Dashboard 
-              openLoginModal={openLoginModal} 
-              isLoggedIn={isLoggedIn}
+            element={
+              <Dashboard
+                openLoginModal={openLoginModal}
+                isLoggedIn={isLoggedIn}
                 username={username}
                 handleLogout={handleLogout}
-              />}
+                handleLogin={handleLogin}
+              />
+            }
           />
           <Route
             path="/spaces/:id"
             element={
-              <AuthRoute openLoginModal={openLoginModal}>
-                <SpacePage />
+              <AuthRoute
+                openLoginModal={openLoginModal}
+                isLoggedIn={isLoggedIn}
+              >
+                <SpacePage
+                  isLoggedIn={isLoggedIn}
+                  username={username}
+                  handleLogout={handleLogout}
+                  handleLogin={handleLogin}
+                />
               </AuthRoute>
             }
           />
@@ -92,22 +103,22 @@ useEffect(()=>{
           />
         </Routes>
         <div className="sign-up-container">
-        {isLoginModalOpen && (
-           <div className="modal-overlay">
-            <div className="modal">
-            <span className="modal-close" onClick={closeLoginModal}>
-              &times;
-            </span>
-          <LoginForm 
-              isLoginMode={isLoginMode}
-              toggleMode={toggleMode}
-              closeModal={closeLoginModal}
-              handleLogin={handleLogin}
-              setIsLoggedIn={setIsLoggedIn}
-              />
+          {isLoginModalOpen && (
+            <div className="modal-overlay">
+              <div className="modal">
+                <span className="modal-close" onClick={closeLoginModal}>
+                  &times;
+                </span>
+                <LoginForm
+                  isLoginMode={isLoginMode}
+                  toggleMode={toggleMode}
+                  closeModal={closeLoginModal}
+                  handleLogin={handleLogin}
+                  setIsLoggedIn={setIsLoggedIn}
+                />
               </div>
             </div>
-        )}
+          )}
         </div>
         <Footer />
       </div>

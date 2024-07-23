@@ -13,9 +13,6 @@ const [isLoginMode, setIsLoginMode] = useState(true);
 const navigate = useNavigate();
 
 
-
-
-
 const toggleLoginModal = () =>{
   setShowLoginForm(!showLoginForm)
 };
@@ -40,8 +37,7 @@ const onLogout = async () => {
 };
 
 
-
-  return (
+return (
     <>
     <div className="login-container">
         <a href="#" className="login-toggle" onClick={isLoggedIn ? onLogout  : toggleLoginModal}>
@@ -57,7 +53,7 @@ const onLogout = async () => {
             <span className="modal-close" onClick={toggleLoginModal}>
               &times;
             </span>
-           <LoginForm isLoginMode={isLoginMode} toggleMode={toggleMode} closeModal={closeModal} setIsLoggedIn={setIsLoggedIn} handleLogin={handleLogin}/>
+           <LoginForm isLoginMode={isLoginMode} toggleMode={toggleMode} closeModal={closeModal} handleLogin={handleLogin}/>
           </div>
           </div>
         )}
