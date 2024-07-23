@@ -1,5 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik+Mono+One&display=swap');
 .space-card-container{
-    margin: 10px 20px;
+    margin: 5px 20px;
     padding: 10px 0;
     display: flex;
     flex-direction: column;
@@ -19,15 +20,17 @@
     width: 50%;
 }
 .create-card-btn {
-    font-family: 'Roboto', sans-serif;
-    font-size: 14px;
+    font-family: "Rubik Mono One", monospace;
+   font-weight: 200;
+   font-style: normal;
+   font-size: 12px;
     padding: 10px 20px;
     width: auto;
     border-radius: 6px;
     font-weight: 300;
     margin: 5px;
-    color: #F2F2F2;
-    background-color: #4c58b5;
+    color: #24292e; 
+    background-color: #ffdd57;
     transition: background-color 200ms, box-shadow 200ms;
     cursor: pointer;
     border: none;
@@ -37,6 +40,7 @@
 .create-card-btn:hover {
     background-color: #323232;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 8px 16px rgba(0, 0, 0, 0.2);
+    color: #F2F2F2;
 }
 
 .create-card-btn:active {
@@ -81,6 +85,7 @@
 .back-link{
     text-decoration: none;
     color: #323232; 
+    margin-top: 10px;
 }
 
 

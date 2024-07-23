@@ -5,6 +5,7 @@ import LoginForm from "../LoginForm/LoginForm";
 import UserApi from "../../services/UserApi";
 import {useNavigate} from "react-router-dom";
 
+
  
 
 const Header = ({isLoggedIn, username, handleLogout,handleLogin }) => {
@@ -41,7 +42,7 @@ return (
     <>
     <div className="login-container">
         <a href="#" className="login-toggle" onClick={isLoggedIn ? onLogout  : toggleLoginModal}>
-        {isLoggedIn ? `Logout (${username}) ` : isLoginMode ? "Login" : "Register"}
+        {isLoggedIn ? `Logout , ${username} ` : isLoginMode ? "Login" : "Register"}
         </a>
     </div>
     <header className="banner">
