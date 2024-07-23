@@ -1,24 +1,20 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "../Dashboard/Dashboard.css";
 import Header from "../Header/Header";
 import NewSpaceForm from "../NewSpaceForm/NewSpaceForm";
 import { getSpaces, deleteSpace } from "../../services/SpaceApi";
-import {getToken} from  '../../services/UserApi'
 
-const Dashboard = () => {
+
+const Dashboard = ({openLoginModal}) => {
   const [spaces, setSpaces] = useState([]);
   const [filteredSpaces, setFilterSpaces] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [showForm, setShowForm] = useState(false);
-
+  const navigate = useNavigate();
 
   useEffect(() => {
-    const token = getToken();
-    if(token){
       fetchSpaces();
-    }else{
-      console.error("No token found, please login first");
-    }
   }, []);
   
 
@@ -47,8 +43,23 @@ const Dashboard = () => {
 
   // modal pop up
   const toggleForm = () => {
-    setShowForm(!showForm);
+    const isLoggedIn = localStorage.getItem('token');
+    if(isLoggedIn){
+      setShowForm(!showForm);
+    }else{
+      openLoginModal();
+    }
   };
+  // Handle space link click
+  const handleSpaceLinkClick = (spaceId) => {
+    const isLoggedIn = localStorage.getItem('token');
+    if (isLoggedIn) {
+      navigate(`/spaces/${spaceId}`);
+    } else {
+      openLoginModal();
+    }
+  };
+
 
   const handleInputChange = (e) => {
     const searchInput = e.target.value;
@@ -149,7 +160,10 @@ const Dashboard = () => {
             <h3>{space.title}</h3>
             <p>{space.category}</p>
             <div className="btn-container">
-              <a href={`/spaces/${space.space_id}`}>See Space</a>
+              <a href={`/spaces/${space.space_id}`} onClick={(e) => {
+                  e.preventDefault(); // Prevent default link behavior
+                  handleSpaceLinkClick(space.space_id);
+                }}>See Space</a>
               <button
                 className="board-card btn filter-btn"
                 onClick={() => handleDeleteSpace(space.space_id)}

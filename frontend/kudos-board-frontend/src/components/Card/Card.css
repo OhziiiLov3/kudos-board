@@ -104,7 +104,7 @@
   .card img {
     max-width: 100%;
     width: 90%;
-    height: auto;
+    height: 200px;
     border-radius: 4px;
     display: block;
     margin: 0 auto 10px;

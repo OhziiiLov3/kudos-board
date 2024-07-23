@@ -2,7 +2,7 @@ import { FaRegTrashCan } from "react-icons/fa6";
 import { SlLike } from "react-icons/sl";
 import { useState, useEffect } from "react";
 import { addComment, deleteComment, getComments } from "../../services/CardApi";
-
+import { getCurrentUser } from "../../services/UserApi";
 import '../Card/Card.css'
 
 
@@ -11,6 +11,7 @@ const Card = ({ card, onUpvote, onDelete }) => {
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState('');
   const [showComments, setShowComments] = useState(false);
+  const [currentUser, setCurrentUser] = useState(null);
 
  useEffect(() => {
   if(showComments){
@@ -18,10 +19,26 @@ const Card = ({ card, onUpvote, onDelete }) => {
   }
  }, [showComments]);
 
- 
+ useEffect(()=>{
+ fetchCurrentUser();
+},[])
+
+
+ const fetchCurrentUser = async () =>{
+  try {
+    const userData = await getCurrentUser();
+    setCurrentUser(userData);
+  } catch (error) {
+    console.error("Error fetching current user:", error);
+  }
+}
+
+
+
  const fetchComments = async () =>{
  try {
   const commentsData = await getComments(space_id,card_id);
+  console.log("Comment Data", commentsData);
   setComments(commentsData);
  } catch (error) {
   console.error('Error fetching comments:', error);
@@ -30,9 +47,10 @@ const Card = ({ card, onUpvote, onDelete }) => {
 
 
  const handleAddComment = async () =>{
-if(!newComment) return;
+if(!newComment || !currentUser) return;
 try {
-  await addComment(space_id,card_id, {content: newComment, author: "User 002"})
+  const {username,user_id} = currentUser;
+  await addComment(space_id,card_id, {content: newComment, author:username, authorId: user_id})
   setNewComment("");
   fetchComments();
 } catch (error) {
@@ -71,7 +89,7 @@ try {
         {comments.length > 0 ? comments.map(comment=>(
           <div className="comment" key={comment.comment_id}>
             <p>{comment.content}</p>
-            <small>By: {comment.author}</small>
+            <small>By: {comment.author.username}</small>
             <button className="delete-button" onClick={()=> handleDeleteComment(comment.comment_id)}>Delete</button>
           </div>
         )): <p>No comments yet.</p>}

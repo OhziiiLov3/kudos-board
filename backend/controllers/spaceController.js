@@ -32,7 +32,6 @@ const getSpaces = async (req, res) => {
   try {
     const filters = { category, title, author };
     spaces = await SpaceModel.getAllSpaces(filters);
-    console.log(spaces);
     res.json(spaces);
   } catch (error) {
     res.status(500).json({ error: error.message });

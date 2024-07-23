@@ -3,6 +3,7 @@ import "../Header/Header.css"
 import logo from '../../assets/images/logo.png'
 import LoginForm from "../LoginForm/LoginForm";
 import UserApi from "../../services/UserApi";
+import {useNavigate} from "react-router-dom";
 
  
 
@@ -11,6 +12,7 @@ const [showLoginForm, setShowLoginForm] = useState(false);
 const [isLoginMode, setIsLoginMode] = useState(true);
 const [isLoggedIn, setIsLoggedIn] = useState(false);
 const [username, setUsername] = useState("");
+const navigate = useNavigate();
 
 
 
@@ -49,6 +51,7 @@ const handleLogout = async () => {
     await UserApi.logout();
     setIsLoggedIn(false);
     setUsername("");
+    navigate('/');
   } catch (error) {
     console.error("Logout error:", error);
   }
@@ -70,14 +73,13 @@ const handleLogin = (username) => {
         <img src={logo} alt="" />
         {showLoginForm && (
           <div className="modal-overlay">
-              <div className="modal-overlay">
+             
           <div className="modal">
             <span className="modal-close" onClick={toggleLoginModal}>
               &times;
             </span>
            <LoginForm isLoginMode={isLoginMode} toggleMode={toggleMode} closeModal={closeModal} setIsLoggedIn={setIsLoggedIn} handleLogin={handleLogin}/>
           </div>
-        </div>
           </div>
         )}
     </header>

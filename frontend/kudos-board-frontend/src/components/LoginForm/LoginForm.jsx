@@ -2,16 +2,17 @@ import { useState } from "react";
 import authApi from "../../services/UserApi";
 import "../LoginForm/LoginForm.css";
 
+
 const LoginForm = ({ isLoginMode, toggleMode, closeModal, setIsLoggedIn, handleLogin }) => {
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
+  
 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Submit");
     try {
       if (isLoginMode) {
         const response = await authApi.login(email, password);
@@ -39,8 +40,11 @@ const LoginForm = ({ isLoginMode, toggleMode, closeModal, setIsLoggedIn, handleL
         closeModal();
     }
     } catch (error) {
-      console.error("Login error:", error)
-      setError(error.message);
+     
+      const errorMessage = error.message || "An unknown error occurred.";
+      setError(errorMessage);
+      console.log("Error message set to:", errorMessage);
+
     }
   };
   return (
@@ -79,10 +83,10 @@ const LoginForm = ({ isLoginMode, toggleMode, closeModal, setIsLoggedIn, handleL
           </button>
           </div>
           <p className="login-message">
+  {isLoginMode ? "Don't Have an account ?" : "Already have an account ?"}
+</p>
+{error && <p className="error-message">{error}</p>}
 
-         {isLoginMode ? "Don't Have an account ?" : "Already have an account ?"}
-          </p>
-          {error && <p className="error-messgae">{error}</p>}
         </form>
       </div>
     </div>

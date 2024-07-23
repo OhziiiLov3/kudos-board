@@ -17,7 +17,6 @@ const SpacePage = () => {
   const {id} = useParams();
   const [cards, setCards] = useState([]);
 
-
   useEffect(()=>{
     fetchSpace();
     fetchCards()
@@ -27,6 +26,7 @@ const SpacePage = () => {
   const fetchSpace = async () =>{
     try {
       const response = await getSpace(id);
+      console.log(response);
       setSpace(response);
     } catch (error) {
       console.error('Error fetching space:', error);
@@ -67,6 +67,8 @@ const SpacePage = () => {
       console.error('Error upvoting card:', error);
     }
   }
+
+
 
   return (
     <>

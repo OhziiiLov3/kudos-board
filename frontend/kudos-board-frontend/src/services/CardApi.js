@@ -31,7 +31,7 @@ export const getCards = async (spaceId) => {
     const token = getToken();
     const response = await axios.get(`${API_BASE_URL}/${spaceId}/cards`,{
       headers:{
-        'Authorization' : `Bearer ${token}`
+        'Authorization' : `Bearer ${token}`,
       }
     });
     return response.data;
@@ -79,11 +79,14 @@ export const deleteCard = async (spaceId, cardId) => {
 export const addComment = async(spaceId, cardId, commentData) => {
  try {
   const token = getToken();
+
+  console.log("comment data",commentData);
   const response = await axios.post(`${API_BASE_URL}/${spaceId}/cards/${cardId}/comments`,commentData,{
     headers: {
       'Authorization': `Bearer ${token}`,
     }
   });
+  console.log("RESPONSE",response.data);
   return response.data;
  } catch (error) {
   console.error('Error adding comment:', error);
@@ -94,7 +97,12 @@ export const addComment = async(spaceId, cardId, commentData) => {
 // function to read all comments 
 export const getComments = async( spaceId,cardId) =>{
   try {
-    const response = await  axios.get(`${API_BASE_URL}/${spaceId}/cards/${cardId}/comments`);
+    const token = getToken();
+    const response = await  axios.get(`${API_BASE_URL}/${spaceId}/cards/${cardId}/comments`,{
+      headers:{
+      'Authorization' : `Bearer ${token}`
+      }
+    });
     return response.data;
   } catch (error) {
     console.error('Error fetching comments:', error);

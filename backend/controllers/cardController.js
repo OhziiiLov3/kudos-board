@@ -6,12 +6,11 @@ const UserModel = require("../models/user");
 const createCard = async (req, res) => {
   const { title, message, gifUrl } = req.body;
   const { spaceId } = req.params;
-  console.log("Request",req.body);
   try {
     const authorId = req.user.user_id;
     const user = await UserModel.findUserById(authorId);
-    console.log("user",user);
-    console.log("username",user.username);
+    // console.log("user",user);
+    // console.log("username",user.username);
     if (!user) {
       return res.status(404).json({ error: "User not found" });
     }

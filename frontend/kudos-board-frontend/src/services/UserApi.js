@@ -34,7 +34,9 @@ export const getCurrentUser = async () => {
  });
     return response.data
  } catch (error) {
-    throw error.response.data.error;
+        const errorMessage = error.response ? error.response.data.error : error.message;
+        console.error("Error fetching current user:", errorMessage);
+        throw new Error(errorMessage);
  }
 };
 
@@ -49,7 +51,9 @@ export const login = async (email, password) => {
         console.log("Stored Token in localStorage:", localStorage.getItem('token')); 
         return response.data;
     } catch (error) {
-        throw error.response.data.error;
+        const errorMessage = error.response ? error.response.data.error : error.message;
+        console.error("Login error:", errorMessage);
+        throw new Error(errorMessage);
     }
 };
 
