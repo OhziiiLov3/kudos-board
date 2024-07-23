@@ -11,5 +11,6 @@ router.post('/logout', userController.logout);
 
  // get user details
 router.get('/current-user', authenticate, userController.getCurrentUser);
-
+// New route for fetching user details by ID
+router.get('/users/:id', authenticate, userController.getUserById);
 module.exports = router;

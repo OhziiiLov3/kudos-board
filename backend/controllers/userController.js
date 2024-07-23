@@ -9,8 +9,7 @@ const SECRET_KEY = process.env.SECRET_KEY;
 
 
 
-// Get user detials 
-
+// Get current user detials 
 const getCurrentUser = async (req,res) =>{
  try {
     const userId = req.user.user_id;
@@ -29,6 +28,27 @@ const getCurrentUser = async (req,res) =>{
     res.status(500).json({ error: 'Internal server error' });
  }
 };
+
+// Get user details by ID
+const getUserById = async (req, res) => {
+    try {
+        const userId = parseInt(req.params.id, 10); // Ensure ID is an integer
+        const user = await UserModel.findUserById(userId); // Ensure this method is correctly implemented
+        if (!user) {
+            console.log('User not found:', userId);
+            return res.status(404).json({ error: 'User not found' });
+        }
+        res.json({
+            user_id: user.user_id,
+            email: user.email,
+            username: user.username,
+        });
+    } catch (error) {
+        console.error('Error fetching user:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+};
+
 
 
 const register = async (req,res) =>{
@@ -85,6 +105,7 @@ const logout = async (req, res) => {
 
 module.exports = {
     getCurrentUser,
+    getUserById,
     register,
     login,
     logout

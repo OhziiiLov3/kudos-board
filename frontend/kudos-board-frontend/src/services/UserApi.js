@@ -40,6 +40,22 @@ export const getCurrentUser = async () => {
  }
 };
 
+export const getUserById = async (userId) => {
+    try {
+        const token = localStorage.getItem('token');
+        const response = await authApi.get(`/users/${userId}`, {
+            headers: {
+                'Authorization': `Bearer ${token}`,
+            }
+        });
+        return response.data;
+    } catch (error) {
+        const errorMessage = error.response ? error.response.data.error : error.message;
+        console.error("Error fetching user details:", errorMessage);
+        throw new Error(errorMessage);
+    }
+};
+
 // user login
 export const login = async (email, password) => {
     try {

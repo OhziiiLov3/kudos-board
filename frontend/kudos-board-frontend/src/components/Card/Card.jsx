@@ -2,16 +2,19 @@ import { FaRegTrashCan } from "react-icons/fa6";
 import { SlLike } from "react-icons/sl";
 import { useState, useEffect } from "react";
 import { addComment, deleteComment, getComments } from "../../services/CardApi";
-import { getCurrentUser } from "../../services/UserApi";
+import { getCurrentUser, getUserById } from "../../services/UserApi";
 import '../Card/Card.css'
 
 
 const Card = ({ card, onUpvote, onDelete }) => {
-  const { title, message, gifUrl, author, upvotes,card_id, space_id} = card;
+  const { title, message, gifUrl, upvotes,card_id, space_id, authorId} = card;
+  console.log(card);
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState('');
   const [showComments, setShowComments] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
+  const [author, setAuthor] = useState('');
+
 
  useEffect(() => {
   if(showComments){
@@ -21,6 +24,7 @@ const Card = ({ card, onUpvote, onDelete }) => {
 
  useEffect(()=>{
  fetchCurrentUser();
+ fetchAuthorDetails();
 },[])
 
 
@@ -28,12 +32,20 @@ const Card = ({ card, onUpvote, onDelete }) => {
   try {
     const userData = await getCurrentUser();
     setCurrentUser(userData);
+    setAuthor(userData.username);
   } catch (error) {
     console.error("Error fetching current user:", error);
   }
 }
 
-
+const fetchAuthorDetails = async () => {
+  try {
+    const authorData = await getUserById(authorId);
+    setAuthor(authorData.username);
+  } catch (error) {
+    console.error("Error fetching author details:", error);
+  }
+};
 
  const fetchComments = async () =>{
  try {
@@ -72,44 +84,52 @@ try {
   setShowComments(!showComments);
  }
 
+   // Helper function to determine if current user can delete
+   const canDelete = (itemAuthorId) => currentUser && currentUser.user_id === itemAuthorId;
 
   return (
-    <div className="card"  >
-      <h3>{title}</h3>
-      {gifUrl && <img src={gifUrl} alt="GIF" />}
-      <p>{message}</p>
-      <p><strong>By:</strong>{author}</p>
-      <button className='upvote-button' onClick={() => onUpvote(card_id)}> <SlLike />  {upvotes}</button>
-      <button className="delete-button" onClick={() => onDelete(card_id)}>
-      <FaRegTrashCan/>
-      </button>
-      
-    {  showComments && (
+    <div className="card">
+    <h3>{title}</h3>
+    <div className="card-content">
+    {gifUrl && <img src={gifUrl} alt="GIF" />}
+    <p>{message}</p>
+    <p><strong>By:</strong> { author ||  "Unknown"}</p>
+    </div>
+    <div className="card-footer">
+      <button className='upvote-button' onClick={() => onUpvote(card_id)}> <SlLike /> {upvotes}</button>
+      {canDelete(authorId) && (
+          <button className="delete-button" onClick={() => onDelete(card_id)}>
+            <FaRegTrashCan />
+          </button>
+        )}
+    </div>
+    {showComments && (
       <div className="comments-list">
-        {comments.length > 0 ? comments.map(comment=>(
+        {comments.length > 0 ? comments.map(comment => (
           <div className="comment" key={comment.comment_id}>
             <p>{comment.content}</p>
             <small>By: {comment.author.username}</small>
-            <button className="delete-button" onClick={()=> handleDeleteComment(comment.comment_id)}>Delete</button>
+            {canDelete(comment.authorId) && (
+                <button className="delete-button" onClick={() => handleDeleteComment(comment.comment_id)}>Delete</button>
+              )}
           </div>
-        )): <p>No comments yet.</p>}
+        )) : <p>No comments yet.</p>}
       </div>
-        )}
-      <div className="comments-section">
-        <input 
-        type="text" 
+    )}
+    <div className="comments-section">
+      <input
+        type="text"
         placeholder="Add a Comment"
         value={newComment}
-        onChange={(e)=> setNewComment(e.target.value)}
-        />
-               <button className="filter-btn" onClick={handleAddComment}>Add Comment</button>
-               <button className="filter-btn" onClick={toggleComments}>
-          {showComments ? 'Hide Comments' : 'Show Comments'}
-        </button>
-      </div>
-
+        onChange={(e) => setNewComment(e.target.value)}
+      />
+      <button className="filter-btn" onClick={handleAddComment}>Add Comment</button>
+      <button className="filter-btn" onClick={toggleComments}>
+        {showComments ? 'Hide Comments' : 'Show Comments'}
+      </button>
     </div>
-  );
+  </div>
+);
 };
 
 export default Card;
