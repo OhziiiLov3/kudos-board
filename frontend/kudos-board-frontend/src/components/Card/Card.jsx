@@ -13,7 +13,7 @@ const Card = ({ card, onUpvote, onDelete }) => {
   const [newComment, setNewComment] = useState('');
   const [showComments, setShowComments] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
-  const [author, setAuthor] = useState('');
+  const [author, setAuthor] = useState(null);
 
 
  useEffect(() => {
@@ -25,14 +25,14 @@ const Card = ({ card, onUpvote, onDelete }) => {
  useEffect(()=>{
  fetchCurrentUser();
  fetchAuthorDetails();
-},[])
+},[authorId])
 
 
  const fetchCurrentUser = async () =>{
   try {
     const userData = await getCurrentUser();
+    console.log("Fetched Current User:", userData);
     setCurrentUser(userData);
-    setAuthor(userData.username);
   } catch (error) {
     console.error("Error fetching current user:", error);
   }
@@ -41,7 +41,8 @@ const Card = ({ card, onUpvote, onDelete }) => {
 const fetchAuthorDetails = async () => {
   try {
     const authorData = await getUserById(authorId);
-    setAuthor(authorData.username);
+    console.log("Fetched Author Details:", authorData)
+    setAuthor(authorData);
   } catch (error) {
     console.error("Error fetching author details:", error);
   }
@@ -93,7 +94,7 @@ try {
     <div className="card-content">
     {gifUrl && <img src={gifUrl} alt="GIF" />}
     <p>{message}</p>
-    <p><strong>By:</strong> { author ||  "Unknown"}</p>
+    <p><strong>By:</strong> {author ? author.username : "Unknown"}</p>
     </div>
     <div className="card-footer">
       <button className='upvote-button' onClick={() => onUpvote(card_id)}> <SlLike /> {upvotes}</button>
