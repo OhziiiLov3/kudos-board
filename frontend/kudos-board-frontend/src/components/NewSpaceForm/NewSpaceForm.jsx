@@ -1,8 +1,9 @@
 import {useState, useEffect} from 'react';
 import { createSpace } from '../../services/SpaceApi';
-import "../NewSpaceForm/NewSpaceForm.css";
 import { searchGifs } from '../../services/gifApi';
 import { getCurrentUser } from '../../services/UserApi';
+
+import "../NewSpaceForm/NewSpaceForm.css";
 
 const NewSpaceForm = ({fetchSpaces, toggleForm}) => {
   const [formData, setFormData] = useState({
@@ -122,7 +123,7 @@ const handleSubmit = async (e) => {
             <img src={formData.stickerUrl} alt="Selected Sticker" />
           </div>
         )}
-   <button type="submit">Submit</button>
+   <button type="submit" >Submit</button>
    </form>
     </div>
   );

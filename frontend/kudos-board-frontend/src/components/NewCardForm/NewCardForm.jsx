@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { searchGifs } from "../../services/gifApi";
 import { createCard } from "../../services/CardApi";
-import "../NewCardForm/NewCardForm.css";
+import  "../NewCardForm/NewCardForm.css";
 import { getCurrentUser } from "../../services/UserApi";
 
 const NewCardForm = ({ spaceId, onCardCreated }) => {
@@ -89,7 +89,7 @@ const NewCardForm = ({ spaceId, onCardCreated }) => {
     }
   }
   return (
-    <div className="form-container">
+    <div className='card-form-container'>
       <h2>Send a Card</h2>
       <form onSubmit={handleSubmit}>
         <input
