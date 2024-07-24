@@ -11,8 +11,18 @@ const app = express();
 
 const PORT = 3000;
 
-;
-app.use(cors({ origin: 'https://fivespaces.netlify.app/' }));
+
+const allowedOrigins = ['https://fivespaces.netlify.app'];
+app.use(cors({
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  }
+}));
+
 app.use(bodyParser.json());
 
 app.use('/api', userRoutes);
