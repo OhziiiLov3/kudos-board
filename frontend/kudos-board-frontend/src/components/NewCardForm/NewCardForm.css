@@ -20,11 +20,11 @@
 
 .card-form-container button {
     font-family: 'Roboto', sans-serif;
-    font-size: 14px;
+    font-size: 16px;
     padding: 10px 20px;
     width: 100%;
     border-radius: 6px;
-    font-weight: 300;
+    font-weight: 400;
     margin: 10px 0;
     color: #F2F2F2;
     background-color: #323232;
@@ -45,12 +45,12 @@
  
 
 .card-form-container button:hover {
-    background-color: #4c58b5;
+    background-color: #fbbf24;;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
 .card-form-container button:active {
-    background-color: #3d4795;
+    background-color: #fbbf24;;
     box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
