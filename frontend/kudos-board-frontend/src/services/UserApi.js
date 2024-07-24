@@ -4,6 +4,9 @@ import axios from "axios";
 
 const API_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:3000/api";
 
+console.log("API Base URL:", API_BASE_URL);
+
+
 // Function to retrieve token from localStorage
 export const getToken = () => {
     const token = localStorage.getItem('token');
@@ -78,7 +81,10 @@ export const register = async (email,username, password, ) => {
         const response = await authApi.post('/register', { email,username, password });
         return response.data;
     } catch (error) {
-        throw error.response.data.error;
+        const errorMessage = error.response ? error.response.data.error : error.message;
+        console.error("Registration error:", errorMessage);
+        throw new Error(errorMessage);
+
     }
 };
 
