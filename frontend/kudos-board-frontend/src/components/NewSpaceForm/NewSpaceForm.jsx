@@ -1,6 +1,6 @@
 import {useState, useEffect} from 'react';
 import { createSpace } from '../../services/SpaceApi';
-import "../NewCardForm/NewCardForm.css"; 
+import "../NewSpaceForm/NewSpaceForm.css";
 import { searchGifs } from '../../services/gifApi';
 import { getCurrentUser } from '../../services/UserApi';
 
