@@ -21,6 +21,9 @@ try {
     req.user = user; // Attach user to request object for further use
     next();
 } catch (error) {
+    if (error.name === 'TokenExpiredError') {
+        return res.status(401).json({ error: 'Token expired' });
+    }
     console.error('Authentication error:', error);
     res.status(401).json({ error: 'Invalid token' });   
 }

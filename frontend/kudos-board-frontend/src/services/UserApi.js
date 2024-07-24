@@ -37,6 +37,11 @@ export const getCurrentUser = async () => {
  });
     return response.data
  } catch (error) {
+    if (error.response && error.response.status === 401) {
+        // Handle token expiration
+        localStorage.removeItem('token');
+        throw new Error('Token expired');
+    }
         const errorMessage = error.response ? error.response.data.error : error.message;
         console.error("Error fetching current user:", errorMessage);
         throw new Error(errorMessage);
