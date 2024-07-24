@@ -20,7 +20,7 @@ const SpacePage = ({ isLoggedIn, username, handleLogout, handleLogin }) => {
   useEffect(()=>{
     fetchSpace();
     fetchCards()
-  },[]);
+  },[id]);
 
 
   const fetchSpace = async () =>{
@@ -36,7 +36,6 @@ const SpacePage = ({ isLoggedIn, username, handleLogout, handleLogin }) => {
   const fetchCards = async () => {
     try {
       const cardsData = await getCards(id);
-      // const sortedCards = cardsData.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
       // sort by most votes 
       const sortedCards = cardsData.sort((a, b) => b.upvotes - a.upvotes);
       setCards(sortedCards);
@@ -55,6 +54,7 @@ const SpacePage = ({ isLoggedIn, username, handleLogout, handleLogin }) => {
     try {
       const updatedCard = await  upvoteCard(id, cardId);
       setCards(cards.map(card=> (card.card_id === cardId ? updatedCard : card)))
+      fetchCards();
     } catch (error) {
       console.error('Error upvoting card:', error);
     }
