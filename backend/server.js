@@ -19,6 +19,11 @@ app.use('/api', userRoutes);
 app.use('/api', cardRoutes);
 app.use('/api', spaceRoutes);
 
+app.get('/api', (req, res) => {
+    res.send('API is running...');
+});
+
+
 
 
 
