@@ -11,14 +11,14 @@
 - **Authentication:** JWT Token Auth
 - **API Integration:** Giphy API
 
+## Watch the Demo
 
-[Watch Demo](https://github.com/user-attachments/assets/4f2feb99-ada8-4594-89b7-d3d5717eb335)
-
-![fivespace](https://github.com/user-attachments/assets/ab7f9632-de73-476a-b0b3-fec3bdb2e814)
-
+[![fivespace](https://github.com/user-attachments/assets/ab7f9632-de73-476a-b0b3-fec3bdb2e814)](https://github.com/user-attachments/assets/4f2feb99-ada8-4594-89b7-d3d5717eb335)
 
 
+<!-- [Watch Demo](https://github.com/user-attachments/assets/4f2feb99-ada8-4594-89b7-d3d5717eb335)
 
+![fivespace](https://github.com/user-attachments/assets/ab7f9632-de73-476a-b0b3-fec3bdb2e814) -->
 
 **Deployed Application:** [fiveSpace Deployed Site](https://fivespaces.netlify.app/)
 
