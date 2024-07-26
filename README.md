@@ -3,10 +3,6 @@
 ## Application: Kudos Board
 **By:** Keith Baskerville
 
-[Click here to watch demo](https://fivespaces.netlify.app/assets/images/fivespaceDemo.mp4)
-[![Watch the video](frontend/kudos-board-frontend/src/assets/images/fivespace.png)](frontend/kudos-board-frontend/src/assets/images/fivespaceDemo.mp4)
-
-
 ## Technologies
 - **Frontend:** React
 - **Backend:** Express, Node
@@ -14,6 +10,9 @@
 - **ORM:** Prisma
 - **Authentication:** JWT Token Auth
 - **API Integration:** Giphy API
+
+[Click here to watch demo](https://fivespaces.netlify.app/assets/images/fivespaceDemo.mp4)
+[![Watch the video](frontend/kudos-board-frontend/src/assets/images/fivespace.png)](frontend/kudos-board-frontend/src/assets/images/fivespaceDemo.mp4)
 
 **Deployed Application:** [fiveSpace Deployed Site](https://fivespaces.netlify.app/)
 
